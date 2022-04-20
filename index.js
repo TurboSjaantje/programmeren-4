@@ -21,6 +21,9 @@ app.get("/", (req, res) => {
     });
 });
 
+// hallo
+
+
 app.post("/api/movie", (req, res) => {
     let movie = req.body;
     console.log(movie);
