@@ -21,7 +21,10 @@ app.get("/", (req, res) => {
     });
 });
 
-// hallo
+app.delete("/api/movie/:movieId", (req, res) => {
+    let movieId = req.params.movieId
+
+})
 
 
 app.post("/api/movie", (req, res) => {
