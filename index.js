@@ -14,38 +14,11 @@ app.all("*", (req, res, next) => {
     next();
 });
 
-//simple hello world for empty page
 app.get("/", (req, res) => {
     res.status(200).json({
         status: 200,
         result: "Hello world",
     });
-});
-
-//Share A Meal API
-//User
-app.get("/api/user", (req, res) => {
-    res.status(200).json({
-        status: 200,
-        result: database,
-    });
-});
-
-app.get("/api/user/:userId", (req, res) => {
-    const userId = req.params.userId;
-    let user = database.filter((item) => item.id == userId);
-    if (user.length > 0) {
-        console.log(user);
-        res.status(200).json({
-            status: 200,
-            result: user,
-        });
-    } else {
-        res.status(404).json({
-            status: 404,
-            result: `User with ID: ${userId} not found`,
-        });
-    }
 });
 
 app.post("/api/user", (req, res) => {
@@ -78,30 +51,54 @@ app.post("/api/user", (req, res) => {
 
 //test
 
-app.put("/api/user/:userId", (req,res) => {
+app.put("/api/user/:userId", (req, res) => {
     //get updated user
     let user = req.body;
     console.log(user);
     user = {
         id,
         ...user,
-    };
+    }
 
     const userId = req.params.userId;
-    let users = database.filter((item) => item.id == userId);
-    if (users.length != 0) {
-        database[database.indexOf(user[0])] = user
+        let users = database.filter((item) => item.id == userId);
+        if (users.length != 0) {
+            database[database.indexOf(users[0])] = user
+            res.status(200).json({
+                status: 200,
+                result: `User with ID: ${userId} updated succesfully`,
+            });
+        } else {
+            res.status(404).json({
+                status: 404,
+                result: `Use with ID: ${userId} does not exist!`,
+            });
+        }
+    });
+
+app.get("/api/user/profile", (req, res) => {
+    res.status(401).json({
+        status: 401,
+        result: `Function is not yet implemented!`,
+    });
+});
+
+app.get("/api/user/:userId", (req, res) => {
+    const userId = req.params.userId;
+    let user = database.filter((item) => item.id == userId);
+    if (user.length > 0) {
+        console.log(user);
         res.status(200).json({
             status: 200,
-            result: `User with ID: ${userId} updated succesfully!`,
+            result: user,
         });
     } else {
         res.status(404).json({
             status: 404,
-            result: `Use with ID: ${userId} does not exist!`,
+            result: `User with ID: ${userId} not found`,
         });
     }
-})
+});
 
 app.delete("/api/user/:userId", (req, res) => {
     const userId = req.params.userId;
@@ -118,14 +115,6 @@ app.delete("/api/user/:userId", (req, res) => {
             result: `Use with ID: ${userId} does not exist!`,
         });
     }
-});
-
-//User profile
-app.get("/api/user/profile", (req, res) => {
-    res.status(401).json({
-        status: 401,
-        result: `Function is not yet implemented!`,
-    });
 });
 
 app.all("*", (req, res) => {
