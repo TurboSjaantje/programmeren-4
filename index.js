@@ -33,12 +33,12 @@ app.post("/api/user", (req, res) => {
     id++;
 
     let email = database.filter(
-        (item) => item.emailAddress == user.emailAddress
+        (item) => item.emailAdress == user.emailAdress
     );
     if (email != 0) {
         res.status(404).json({
             status: 404,
-            result: `The emailaddres: ${user.emailAddress}, has already been used!`,
+            result: `The emailaddres: ${user.emailAdress}, has already been used!`,
         });
     } else {
         database.push(user);
