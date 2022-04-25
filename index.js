@@ -77,6 +77,8 @@ app.post("/api/user", (req, res) => {
     }
 });
 
+//test
+
 app.put("/api/user/:userId", (req,res) => {
     //get updated user
     let user = req.body;
