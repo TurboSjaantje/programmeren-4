@@ -62,8 +62,8 @@ app.put("/api/user/:userId", (req, res) => {
     let users = database.filter((item) => item.id == userId);
     if (users.length != 0) {
         database[database.indexOf(users[0])] = user
-        res.status(200).json({
-            status: 200,
+        res.status(205).json({
+            status: 205,
             result: `User with ID: ${userId} updated succesfully`,
         });
     } else {
@@ -83,7 +83,7 @@ app.get("/api/user/profile", (req, res) => {
 
 app.get("/api/user", (req, res, next) => {
     res.status(202).json({
-        status: 202,
+        status: 200,
         result: database
     })
 })
@@ -93,8 +93,8 @@ app.get("/api/user/:userId", (req, res) => {
     let user = database.filter((item) => item.id == userId);
     if (user.length > 0) {
         console.log(user);
-        res.status(200).json({
-            status: 200,
+        res.status(204).json({
+            status: 204,
             result: user,
         });
     } else {
@@ -110,8 +110,8 @@ app.delete("/api/user/:userId", (req, res) => {
     let users = database.filter((item) => item.id == userId);
     if (users.length != 0) {
         database.splice(database.indexOf(users[0]), 1);
-        res.status(200).json({
-            status: 200,
+        res.status(206).json({
+            status: 206,
             result: `User with ID: ${userId} deleted succesfully`,
         });
     } else {
