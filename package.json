@@ -14,15 +14,14 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "body-parser": "^1.20.0",
     "express": "^4.17.3"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/school104/programmeren-4-share-a-meal.git"
+    "url": "git+https://github.com/TurboSjaantje/programmeren-4.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/school104/programmeren-4-share-a-meal/issues"
+    "url": "https://github.com/TurboSjaantje/programmeren-4/issues"
   },
-  "homepage": "https://gitlab.com/school104/programmeren-4-share-a-meal#readme"
+  "homepage": "https://github.com/TurboSjaantje/programmeren-4#readme"
 }
