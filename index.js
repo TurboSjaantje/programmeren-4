@@ -4,24 +4,18 @@ const port = process.env.PORT || 3000;
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+const router = require('./src/routes/user.routes')
 
 let database = [];
 let id = 0;
 
-//api
-//all requests
 app.all("*", (req, res, next) => {
     const method = req.method;
     console.log(`method ${method} aangeroepen`);
     next();
 });
 
-app.get("/", (req, res) => {
-    res.status(200).json({
-        status: 200,
-        result: "Hello world",
-    });
-});
+app.use(router);
 
 app.all("*", (req, res) => {
     res.status(404).json({
@@ -30,116 +24,6 @@ app.all("*", (req, res) => {
     });
 });
 
-//user
-//create
-app.post("/api/user", (req, res) => {
-    let user = req.body;
-    console.log(user);
-    user = {
-        id,
-        ...user,
-    };
-
-    id++;
-
-    let email = database.filter(
-        (item) => item.emailAdress == user.emailAdress
-    );
-    if (email != 0) {
-        res.status(404).json({
-            status: 404,
-            result: `The emailaddres: ${user.emailAdress}, has already been used!`,
-        });
-    } else {
-        database.push(user);
-        console.log(database);
-        res.status(201).json({
-            status: 201,
-            result: user,
-        });
-    }
-});
-
-//read
-
-app.get("/api/user", (req, res, next) => {
-    res.status(202).json({
-        status: 200,
-        result: database
-    })
-})
-
-app.get("/api/user/:userId", (req, res) => {
-    const userId = req.params.userId;
-    let user = database.filter((item) => item.id == userId);
-    if (user.length > 0) {
-        console.log(user);
-        res.status(204).json({
-            status: 204,
-            result: user,
-        });
-    } else {
-        res.status(404).json({
-            status: 404,
-            result: `User with ID: ${userId} not found`,
-        });
-    }
-});
-
-app.get("/api/user/profile", (req, res) => {
-    res.status(401).json({
-        status: 401,
-        result: `Function is not yet implemented!`,
-    });
-});
-
-//update
-
-app.put("/api/user/:userId", (req, res) => {
-    //get updated user
-    let user = req.body;
-    console.log(user);
-    user = {
-        id,
-        ...user,
-    }
-
-    const userId = req.params.userId;
-    let users = database.filter((item) => item.id == userId);
-    if (users.length != 0) {
-        database[database.indexOf(users[0])] = user
-        res.status(205).json({
-            status: 205,
-            result: `User with ID: ${userId} updated succesfully`,
-        });
-    } else {
-        res.status(404).json({
-            status: 404,
-            result: `Use with ID: ${userId} does not exist!`,
-        });
-    }
-});
-
-//delete
-
-app.delete("/api/user/:userId", (req, res) => {
-    const userId = req.params.userId;
-    let users = database.filter((item) => item.id == userId);
-    if (users.length != 0) {
-        database.splice(database.indexOf(users[0]), 1);
-        res.status(206).json({
-            status: 206,
-            result: `User with ID: ${userId} deleted succesfully`,
-        });
-    } else {
-        res.status(404).json({
-            status: 404,
-            result: `Use with ID: ${userId} does not exist!`,
-        });
-    }
-});
-
-//server
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
