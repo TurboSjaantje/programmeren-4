@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-const router = require('./src/routes/user.routes')
+const userRouter = require('./src/routes/user.routes')
 
 let database = [];
 let id = 0;
@@ -15,7 +15,7 @@ app.all("*", (req, res, next) => {
     next();
 });
 
-app.use(router);
+app.use(userRouter);
 
 app.all("*", (req, res) => {
     res.status(404).json({

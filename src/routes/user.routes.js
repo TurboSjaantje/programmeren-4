@@ -4,7 +4,7 @@ const router = express.Router()
 let database = [];
 let id = 0
 
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
     res.status(200).json({
         status: 200,
         result: "Welcome to Share-a-meal API",
@@ -112,4 +112,4 @@ router.delete("/api/user/:userId", (req, res) => {
     }
 });
 
-modules.exports = router;
+module.exports = router;
