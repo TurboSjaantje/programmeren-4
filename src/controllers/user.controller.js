@@ -17,12 +17,8 @@ let controller = {
 			);
 			next();
 		} catch (err) {
-            console.log(err.code)
-			console.log(err.message);
-			res.status(400).json({
-				status: 400,
-				result: err.toString(),
-			});
+			const error = { status: 400, result: err.message };
+			next(error);
 		}
 	},
 	addUser: (req, res) => {
@@ -52,24 +48,21 @@ let controller = {
 			});
 		}
 	},
-	getUserFromId: (req, res) => {
+	getUserFromId: (req, res, next) => {
 		const userId = req.params.userId;
 		const users = database.filter((item) => item.id == userId);
 
 		if (users.length <= 0) {
-			res.status(401).json({
-				status: 401,
-				result: `User with ID ${userId} not found`,
-			});
-
+            const error = {
+                status: 401,
+                result: `User with ID ${userId} not found`
+            }
+            next(error);
 			return;
 		}
 
 		const user = users[0];
-		res.status(200).json({
-			status: 200,
-			result: user,
-		});
+		res.status(200).json({ status: 200, result: user });
 	},
 	getAllUsers: (req, res) => {
 		res.status(202).json({

@@ -13,15 +13,20 @@ app.all("*", (req, res, next) => {
 	next();
 });
 
-//All valid routes, 200
+//All valid routes
 app.use(userRouter);
 
-//All unvalid routes, 404
+//All unvalid routes
 app.all("*", (req, res) => {
 	res.status(404).json({
 		status: 404,
 		result: "end-point not found",
 	});
+});
+
+//Error Handling
+app.use((err, req, res, next) => {
+    res.status(err.status).json(err)
 });
 
 //Start server
