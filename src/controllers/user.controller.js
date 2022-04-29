@@ -1,8 +1,8 @@
-const assert = require("assert");
-const { restart } = require("nodemon");
+const dbconnection = require('../../database/dbconnection');
+const assert = require('assert');
 
-let database = [];
-let id = 0;
+// let database = [];
+// let id = 0;
 
 let controller = {
 	validateUser: (req, res, next) => {
@@ -10,8 +10,11 @@ let controller = {
 
 		let { name, emailAdress } = user;
 		try {
-			assert(typeof name === "string", "Name must be a string!");
-			assert(typeof emailAdress === "string","emailAdress must be a string!");
+			assert(typeof name === 'string', 'Name must be a string!');
+			assert(
+				typeof emailAdress === 'string',
+				'emailAdress must be a string!'
+			);
 			next();
 		} catch (err) {
 			const error = { status: 400, result: err.message };
@@ -61,10 +64,28 @@ let controller = {
 		const user = users[0];
 		res.status(200).json({ status: 200, result: user });
 	},
-	getAllUsers: (req, res) => {
-		res.status(202).json({
-			status: 200,
-			result: database,
+	getAllUsers: (req, res, next) => {
+		dbconnection.getConnection(function (err, connection) {
+			if (err) throw error; //not connected
+
+			//Use the connection
+			connection.query(
+				'SELECT id, name FROM meal;',
+				function (error, results, fields) {
+					// When done with the connection, release it.
+					connection.release();
+
+					// Handle error afther the release.
+					if (error) throw error;
+
+					// Don't use the connection here, it has been returned to the pool.
+					console.log('#results = ', results.length);
+					res.status(200).json({
+						statusCode: 200,
+						results: results,
+					});
+				}
+			);
 		});
 	},
 	getUserProfileFromId: (req, res) => {
