@@ -10,11 +10,8 @@ let controller = {
 
 		let { name, emailAdress } = user;
 		try {
-			assert(typeof name === "string", "Title must be a string!");
-			assert(
-				typeof emailAdress === "string",
-				"emailAdress must be a string!"
-			);
+			assert(typeof name === "string", "Name must be a string!");
+			assert(typeof emailAdress === "string","emailAdress must be a string!");
 			next();
 		} catch (err) {
 			const error = { status: 400, result: err.message };
@@ -53,11 +50,11 @@ let controller = {
 		const users = database.filter((item) => item.id == userId);
 
 		if (users.length <= 0) {
-            const error = {
-                status: 401,
-                result: `User with ID ${userId} not found`
-            }
-            next(error);
+			const error = {
+				status: 401,
+				result: `User with ID ${userId} not found`,
+			};
+			next(error);
 			return;
 		}
 
