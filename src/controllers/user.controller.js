@@ -8,9 +8,9 @@ let controller = {
 	validateUser: (req, res, next) => {
 		let user = req.body;
 
-		let { name, emailAdress } = user;
+		let { firstName, emailAdress } = user;
 		try {
-			assert(typeof name === 'string', 'Name must be a string!');
+			assert(typeof firstName === 'string', 'Name must be a string!');
 			assert(
 				typeof emailAdress === 'string',
 				'emailAdress must be a string!'
@@ -22,31 +22,37 @@ let controller = {
 		}
 	},
 	addUser: (req, res) => {
-		let user = req.body;
-		console.log(user);
-		user = {
-			id,
-			...user,
-		};
-
-		id++;
-
-		let email = database.filter(
-			(item) => item.emailAdress == user.emailAdress
-		);
-		if (email != 0) {
-			res.status(404).json({
-				status: 404,
-				result: `The emailaddres: ${user.emailAdress}, has already been used!`,
-			});
-		} else {
-			database.push(user);
-			console.log(database);
-			res.status(201).json({
-				status: 201,
-				result: user,
-			});
-		}
+		dbconnection.getConnection(function (err, connection) {
+			let user = req.body;
+			if (err) throw err;
+			connection.query(
+				'INSERT INTO user (firstName, lastName, street, city, phoneNumber, emailAdress, password) VALUES(?, ?, ?, ?, ?, ?, ?);',
+				[
+					user.firstName,
+					user.lastName,
+					user.street,
+					user.city,
+					user.phoneNumber,
+					user.emailAdress,
+					user.password,
+				],
+				function (error, result, fields) {
+					if (error) {
+						connection.release();
+						res.status(409).json({
+							status: 409,
+							result: `The email-address: ${user.emailAdress} has already been taken!`,
+						});
+					} else {
+						connection.release();
+						res.status(201).json({
+							status: 201,
+							result: `User has been succesfully registered`,
+						});
+					}
+				}
+			);
+		});
 	},
 	getUserFromId: (req, res, next) => {
 		const userId = req.params.userId;
@@ -70,7 +76,7 @@ let controller = {
 
 			//Use the connection
 			connection.query(
-				'SELECT id, name FROM meal;',
+				'SELECT * from user',
 				function (error, results, fields) {
 					// When done with the connection, release it.
 					connection.release();

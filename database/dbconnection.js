@@ -12,31 +12,6 @@ var pool = mysql.createPool({
 
 module.exports = pool;
 
-// pool.getConnection(function (err, connection) {
-// 	if (err) throw err;
-
-// 	// Use the connection
-// 	connection.query(
-// 		'SELECT name, id FROM meal;',
-// 		function (error, results, fields) {
-// 			// When done with the connection, release it.
-// 			connection.release();
-
-// 			// Handle error after the release.
-// 			if (error) throw error;
-
-// 			// Print the results
-// 			console.log(results);
-
-// 			// End the pool
-// 			pool.end(function (err) {
-// 				// all connections in the pool have ended
-// 				console.log('Pool was closed.');
-// 			});
-// 		}
-// 	);
-// });
-
 pool.on('acquire', function (connection) {
 	console.log('Connection %d acquired', connection.threadId);
 });
