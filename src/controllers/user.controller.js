@@ -197,21 +197,8 @@ let controller = {
                 }
             );
         });
-        // const userId = req.params.userId;
-        // let users = database.filter((item) => item.id == userId);
-        // if (users.length != 0) {
-        //     database.splice(database.indexOf(users[0]), 1);
-        //     res.status(206).json({
-        //         status: 206,
-        //         result: `User with ID: ${userId} deleted succesfully`,
-        //     });
-        // } else {
-        //     res.status(404).json({
-        //         status: 404,
-        //         result: `Use with ID: ${userId} does not exist!`,
-        //     });
-        // }
     },
 };
 
 module.exports = controller;
+
