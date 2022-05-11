@@ -41,7 +41,7 @@ describe("UC-201 Register New User", () => {
             });
         });
     });
-    it("TC-201-1 Required field is missing", () => {
+    it("TC-201-1 Required field is missing", (done) => {
         chai.request(server)
             .post("/api/user")
             .send({
@@ -58,7 +58,7 @@ describe("UC-201 Register New User", () => {
                 result.should.be
                     .a("string")
                     .that.equals("First Name cannot be null!");
-                done;
+                done();
             });
     });
 });
