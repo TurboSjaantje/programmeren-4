@@ -16,12 +16,11 @@ describe("UC-201 Register New User", () => {
             if (err) throw err;
             connection.query("DELETE FROM User;", (error, result, field) => {
                 connection.query(
-                    "ALTER TABLE User AUTO_INCREMENT = 1;",
+                    "ALTER TABLE user AUTO_INCREMENT = 1;",
                     (error, result, field) => {
                         connection.query(
-                            "INSERT INTO user (id, firstName, lastName, street, city, isActive, emailAdress, password, phoneNumber) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                            "INSERT INTO user (firstName, lastName, street, city, isActive, emailAdress, password, phoneNumber) VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
                             [
-                                1,
                                 "Daan",
                                 "van der Meulen",
                                 "Kievitstraat 22",
