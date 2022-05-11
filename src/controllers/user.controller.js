@@ -98,8 +98,8 @@ let controller = {
 
 			//Use the connection
 			connection.query(
-				'SELECT * FROM User WHERE id = ' + userId + '',
-				function (error, results, fields) {
+				'SELECT * FROM user WHERE id = ' + userId + '',
+				function (error, result, fields) {
 					// When done with the connection, release it.
 					connection.release();
 
@@ -107,8 +107,8 @@ let controller = {
 					if (error) throw error;
 
 					// Don't use the connection here, it has been returned to the pool.
-					console.log('#results = ', results.length);
-					if (results.length < 1) {
+					console.log('result = ', result.length);
+					if (result.length < 1) {
 						const error = {
 							status: 404,
 							result: `User with ID ${userId} not found`,
@@ -118,7 +118,7 @@ let controller = {
 					}
 					res.status(200).json({
 						status: 200,
-						result: results[0],
+						result: result[0],
 					});
 				}
 			);
@@ -131,7 +131,7 @@ let controller = {
 			//Use the connection
 			connection.query(
 				'SELECT * from user',
-				function (error, results, fields) {
+				function (error, result, fields) {
 					// When done with the connection, release it.
 					connection.release();
 
@@ -139,10 +139,10 @@ let controller = {
 					if (error) throw error;
 
 					// Don't use the connection here, it has been returned to the pool.
-					console.log('results = ', results.length);
+					console.log('result = ', result.length);
 					res.status(200).json({
 						status: 200,
-						result: results,
+						result: result,
 					});
 				}
 			);
@@ -173,7 +173,7 @@ let controller = {
 					updateUser.city,
 					userId,
 				],
-				function (error, results, fields) {
+				function (error, result, fields) {
 					if (error) {
 						res.status(401).json({
 							status: 401,
@@ -181,14 +181,14 @@ let controller = {
 						});
 						return;
 					}
-					if (results.affectedRows > 0) {
+					if (result.affectedRows > 0) {
 						connection.query(
 							'SELECT * FROM user WHERE id = ?;',
 							[userId],
-							function (error, results, fields) {
+							function (error, result, fields) {
 								res.status(200).json({
 									status: 200,
-									result: results[0],
+									result: result[0],
 								});
 							}
 						);
@@ -210,8 +210,8 @@ let controller = {
 
 			//Use the connection
 			connection.query(
-				'DELETE IGNORE FROM User WHERE Id = ' + userId,
-				function (error, results, fields) {
+				'DELETE IGNORE FROM user WHERE Id = ' + userId,
+				function (error, result, fields) {
 					// When done with the connection, release it.
 					connection.release();
 
@@ -219,8 +219,8 @@ let controller = {
 					if (error) throw error;
 
 					// Don't use the connection here, it has been returned to the pool.
-					console.log('#results = ', results.length);
-					if (results.affectedRows > 0) {
+					console.log('result = ', result.length);
+					if (result.affectedRows > 0) {
 						res.status(200).json({
 							status: 200,
 							result: `User with ID ${userId} deleted successfuly!`,
