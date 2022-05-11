@@ -1,3 +1,5 @@
+process.env.DB_DATABASE = process.env.DB_DATABASE || 'testdb'
+
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 let server = require("../../index");
