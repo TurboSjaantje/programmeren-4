@@ -21,14 +21,15 @@ describe("UC-201 Register New User", () => {
                         connection.query(
                             "INSERT INTO user (firstName, lastName, street, city, isActive, emailAdress, password, phoneNumber) VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
                             [
-                                "Daan",
-                                "van der Meulen",
-                                "Kievitstraat 22",
-                                "Bleskensgraaf",
+                                "Herman",
+                                "Huizinga",
                                 1,
-                                "daanvdm@hotmail.com",
-                                "DitIsEenGoedeGrap4!",
-                                "06 31490687",
+                                "h.huizinga@server.nl",
+                                "JeMoeder4!",
+                                "0631490687",
+                                "editor,guest",
+                                "hoi",
+                                "hoi",
                             ],
                             (error, result, field) => {
                                 connection.release();
@@ -47,7 +48,7 @@ describe("UC-201 Register New User", () => {
             .send({
                 lastName: "Henk",
                 street: "Meulenbroek 21",
-                city: "Giessenburg",
+                city: "Bleskensgraaf",
                 password: "JeMoeder4!",
                 emailAdress: "daanvdm@hotmail.com",
             })
@@ -66,18 +67,94 @@ describe("UC-201 Register New User", () => {
         chai.request(server)
             .post("/api/user")
             .send({
-                firstName: "Daan",
-                lastName: "Rietveld",
-                street: "Van Wenastraat 31",
-                city: "Giessenburg",
-                password: "wvqOertE5!",
-                emailAdress: "chevygmail.com",
+                firstName: "Ingrid",
+                lastName: "Henk",
+                street: "Meulenbroek 21",
+                city: "Bleskensgraaf",
+                password: "JeMoeder4!",
+                emailAdress: "daanvdmhotmail.com",
             })
             .end((err, res) => {
                 res.should.be.an("object");
                 let { status, result } = res.body;
                 status.should.equals(400);
                 result.should.be.a("string").that.equals("Invalid emailadres");
+                done();
+            });
+    });
+
+    it("TC 201-3 Non-valid password /api/user", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .send({
+                firstName: "Ingrid",
+                lastName: "Henk",
+                street: "Meulenbroek 21",
+                city: "Bleskensgraaf",
+                password: "hoi",
+                emailAdress: "daanvdm@hotmail.com",
+            })
+            .end((err, res) => {
+                res.should.be.an("object");
+                let { status, result } = res.body;
+                status.should.equals(400);
+                result.should.be
+                    .a("string")
+                    .that.equals(
+                        "Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit"
+                    );
+                done();
+            });
+    });
+
+    it("TC 201-4 User already exists /api/user", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .send({
+                firstName: "Herman",
+                lastName: "Huizinga",
+                isActive: 1,
+                emailAdress: "h.huizinga@server.nl",
+                password: "JeMoeder4!",
+                phoneNumber: "0631490687",
+                roles: "editor,guest",
+                street: "hoi",
+                city: "hoi",
+            })
+            .end((err, res) => {
+                res.should.be.an("object");
+                let { status, result } = res.body;
+                status.should.equals(409);
+                result.should.be
+                    .a("string")
+                    .that.equals(
+                        "The email-address: h.huizinga@server.nl has already been taken!"
+                    );
+                done();
+            });
+    });
+
+    it("TC 201-5 User added succesfully /api/user", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .send({
+                firstName: "Herman",
+                lastName: "Huizinga",
+                isActive: 1,
+                emailAdress: "r.vandermullen@student.avans.nl",
+                password: "JeMoeder4!",
+                phoneNumber: "0631490687",
+                roles: "editor,guest",
+                street: "hoi",
+                city: "hoi",
+            })
+            .end((err, res) => {
+                res.should.be.an("object");
+                let { status, result } = res.body;
+                status.should.equals(201);
+                result.should.be
+                    .a("string")
+                    .that.equals("User has been succesfully registered");
                 done();
             });
     });
