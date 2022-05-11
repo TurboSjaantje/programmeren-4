@@ -327,7 +327,7 @@ describe('CRUD Users /api/user', () => {
 		});
 
 		//not implemented because token functionality was not required yet
-		xit('TC-204-1 Invalid token /api/user', (done) => {});
+		// xit('TC-204-1 Invalid token /api/user', (done) => {});
 
 		it('TC-204-2 Invalid userId /api/user', (done) => {
 			chai.request(server)
@@ -468,7 +468,7 @@ describe('CRUD Users /api/user', () => {
 		});
 
 		//Could not implement this one yet becuase token functionality was not yet required
-		xit('TC-205-5 User not signed in /api/user', (done) => {});
+		// xit('TC-205-5 User not signed in /api/user', (done) => {});
 
 		it('TC-205-6 User succesfully edited /api/user', (done) => {
 			chai.request(server)
@@ -544,10 +544,10 @@ describe('CRUD Users /api/user', () => {
 		});
 
 		//not implemented because token functionality was not required yet
-		xit('TC-206-2 Not logged in /api/user', (done) => {});
+		// xit('TC-206-2 Not logged in /api/user', (done) => {});
 
 		//not implemented because token functionality was not required yet
-		xit('TC-206-3 Actor is not owner /api/user', (done) => {});
+		// xit('TC-206-3 Actor is not owner /api/user', (done) => {});
 
 		it('TC-206-3 User deleted succesfully /api/user', (done) => {
 			chai.request(server)
