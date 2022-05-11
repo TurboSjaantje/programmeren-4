@@ -41,7 +41,7 @@ describe("UC-201 Register New User", () => {
         });
     });
 
-    it("TC-201-1 Required field is missing", (done) => {
+    it("TC-201-1 Required field is missing /api/user", (done) => {
         chai.request(server)
             .post("/api/user")
             .send({
@@ -58,6 +58,26 @@ describe("UC-201 Register New User", () => {
                 result.should.be
                     .a("string")
                     .that.equals("First Name cannot be null!");
+                done();
+            });
+    });
+
+    it("TC 201-2 Non-valid emailAdress /api/user", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .send({
+                firstName: "Daan",
+                lastName: "Rietveld",
+                street: "Van Wenastraat 31",
+                city: "Giessenburg",
+                password: "wvqOertE5!",
+                emailAdress: "chevygmail.com",
+            })
+            .end((err, res) => {
+                res.should.be.an("object");
+                let { status, result } = res.body;
+                status.should.equals(400);
+                result.should.be.a("string").that.equals("Invalid emailadres");
                 done();
             });
     });
