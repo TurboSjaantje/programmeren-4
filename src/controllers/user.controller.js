@@ -1,20 +1,57 @@
 const dbconnection = require("../../database/dbconnection");
 const assert = require("assert");
-
-// let database = [];
-// let id = 0;
+const { is } = require("express/lib/request");
 
 let controller = {
     validateUser: (req, res, next) => {
         let user = req.body;
 
-        let { firstName, emailAdress } = user;
+        let {
+            firstName,
+            lastName,
+            isActive,
+            emailAdress,
+            password,
+            phoneNumber,
+            roles,
+            street,
+            city,
+        } = user;
         try {
-            assert(typeof firstName === "string", "Name must be a string!");
+            assert.match(
+                password,
+                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
+                "Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit"
+            );
+            assert.match(
+                emailAdress,
+                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                "Invalid emailadres"
+            );
+            assert(typeof firstName === "string", "First Name cannot be null!");
+            assert(typeof lastName === "string", "Last Name cannot be null!");
+            assert(typeof isActive === "number", "isActive cannot be null!");
             assert(
                 typeof emailAdress === "string",
-                "emailAdress must be a string!"
+                "emailAdress cannot be null!"
             );
+            assert(typeof password === "string", "Password cannot be null!");
+            assert(
+                typeof phoneNumber === "string",
+                "Phonenumber cannot be null!"
+            );
+            assert(
+                typeof phoneNumber === "string",
+                "Phonenumber must be a string!"
+            );
+            assert.match(
+                phoneNumber,
+                /^\d{10}$/,
+                "Phonenumber should be 10 digits"
+            );
+            assert(typeof roles === "string", "Roles cannot be null!");
+            assert(typeof street === "string", "Street cannot be null!");
+            assert(typeof city === "string", "City cannot be null!");
             next();
         } catch (err) {
             const error = { status: 400, result: err.message };
@@ -167,8 +204,8 @@ let controller = {
         });
     },
     deleteUserFromId: (req, res) => {
-        const userId = req.params.userId;
         dbconnection.getConnection(function (err, connection) {
+            const userId = req.params.userId;
             if (err) throw error; //not connected
 
             //Use the connection
@@ -191,7 +228,7 @@ let controller = {
                     } else {
                         res.status(400).json({
                             status: 400,
-                            result: `User with ID:${userId} was not found!`,
+                            result: `User was not found!`,
                         });
                     }
                 }
@@ -201,4 +238,3 @@ let controller = {
 };
 
 module.exports = controller;
-
