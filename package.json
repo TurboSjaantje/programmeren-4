@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "mocha test/**/*.test.js --exit"
+    "test": "mocha -reporter spec test/**/*.test.js --exit"
   },
   "author": "",
   "license": "ISC",
