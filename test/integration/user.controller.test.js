@@ -134,28 +134,28 @@ describe("UC-201 Register New User", () => {
             });
     });
 
-    it("TC 201-5 User added succesfully /api/user", (done) => {
-        chai.request(server)
-            .post("/api/user")
-            .send({
-                firstName: "Herman",
-                lastName: "Huizinga",
-                isActive: 1,
-                emailAdress: "r.vandermullen@student.avans.nl",
-                password: "JeMoeder4!",
-                phoneNumber: "0631490687",
-                roles: "editor,guest",
-                street: "hoi",
-                city: "hoi",
-            })
-            .end((err, res) => {
-                res.should.be.an("object");
-                let { status, result } = res.body;
-                status.should.equals(201);
-                result.should.be
-                    .a("string")
-                    .that.equals("User has been succesfully registered");
-                done();
-            });
-    });
+    // it("TC 201-5 User added succesfully /api/user", (done) => {
+    //     chai.request(server)
+    //         .post("/api/user")
+    //         .send({
+    //             firstName: "Herman",
+    //             lastName: "Huizinga",
+    //             isActive: 1,
+    //             emailAdress: "r.vandermullen@student.avans.nl",
+    //             password: "JeMoeder4!",
+    //             phoneNumber: "0631490687",
+    //             roles: "editor,guest",
+    //             street: "hoi",
+    //             city: "hoi",
+    //         })
+    //         .end((err, res) => {
+    //             res.should.be.an("object");
+    //             let { status, result } = res.body;
+    //             status.should.equals(201);
+    //             result.should.be
+    //                 .a("string")
+    //                 .that.equals("User has been succesfully registered");
+    //             done();
+    //         });
+    // });
 });
