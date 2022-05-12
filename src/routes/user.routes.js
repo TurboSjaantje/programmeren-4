@@ -17,7 +17,7 @@ router.get("/api/user", userController.getAllUsers);
 
 router.get("/api/user/profile", userController.getUserProfileFromId);
 
-router.put("/api/user/:userId", userController.validateUser, userController.updateUserFromId);
+router.put("/api/user/:userId", userController.validateUpdateUser, userController.updateUserFromId);
 
 router.delete("/api/user/:userId", userController.deleteUserFromId);
 
