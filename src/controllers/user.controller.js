@@ -59,13 +59,12 @@ let controller = {
 			let user = req.body;
 			if (err) throw err;
 			connection.query(
-				'INSERT INTO user (firstName, lastName, street, city, phoneNumber, emailAdress, password) VALUES(?, ?, ?, ?, ?, ?, ?);',
+				'INSERT INTO user (firstName, lastName, street, city, emailAdress, password) VALUES(?, ?, ?, ?, ?, ?);',
 				[
 					user.firstName,
 					user.lastName,
 					user.street,
 					user.city,
-					user.phoneNumber,
 					user.emailAdress,
 					user.password,
 				],
