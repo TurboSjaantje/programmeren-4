@@ -54,7 +54,7 @@ let controller = {
 			assert(typeof city === 'string', 'City cannot be null!');
 			next();
 		} catch (err) {
-			const error = { status: 400, result: err.message };
+			const error = { status: 400, message: err.message };
 			next(error);
 		}
 	},
@@ -78,13 +78,13 @@ let controller = {
 						connection.release();
 						res.status(409).json({
 							status: 409,
-							result: `The email-address: ${user.emailAdress} has already been taken!`,
+							message: `The email-address: ${user.emailAdress} has already been taken!`,
 						});
 					} else {
 						connection.release();
 						res.status(201).json({
 							status: 201,
-							result: `User has been succesfully registered`,
+							message: `User has been succesfully registered`,
 						});
 					}
 				}

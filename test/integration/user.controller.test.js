@@ -62,9 +62,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(400);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('First Name cannot be null!');
 					done();
@@ -84,9 +84,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(400);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('Invalid emailadres');
 					done();
@@ -106,9 +106,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(400);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals(
 							'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
@@ -133,9 +133,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(409);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals(
 							'The email-address: name@server.nl has already been taken!'
@@ -161,9 +161,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(201);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('User has been succesfully registered');
 					done();
@@ -406,9 +406,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(400);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('emailAdress cannot be null!');
 					done();
@@ -431,9 +431,9 @@ describe('CRUD Users /api/user', () => {
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(400);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('Phonenumber should be 10 digits');
 					done();
