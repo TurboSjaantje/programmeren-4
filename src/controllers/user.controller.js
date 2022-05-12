@@ -111,7 +111,7 @@ let controller = {
 					if (result.length < 1) {
 						const error = {
 							status: 404,
-							message: `User with ID ${userId} not found`,
+							result: `User with ID ${userId} not found`,
 						};
 						next(error);
 						return;
