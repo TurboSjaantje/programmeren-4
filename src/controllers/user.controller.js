@@ -54,6 +54,57 @@ let controller = {
 			next(error);
 		}
 	},
+	validateUpdateUser: (req, res, next) => {
+		let user = req.body;
+
+		let {
+			firstName,
+			lastName,
+			isActive,
+			emailAdress,
+			password,
+			phoneNumber,
+			roles,
+			street,
+			city,
+		} = user;
+		try {
+			assert.match(
+				password,
+				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
+				'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
+			);
+			assert(
+				typeof emailAdress === 'string',
+				'emailAdress cannot be null!'
+			);
+			assert.match(
+				emailAdress,
+				/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+				'Invalid emailadres'
+			);
+			assert(typeof firstName === 'string', 'First Name cannot be null!');
+			assert(typeof lastName === 'string', 'Last Name cannot be null!');
+			assert(typeof isActive === 'number', 'isActive cannot be null!');
+			assert(
+				typeof phoneNumber === 'string',
+				'Phonenumber cannot be null!'
+			);
+			assert.match(
+				phoneNumber,
+				/^\d{10}$/,
+				'Phonenumber should be 10 digits'
+			);
+			assert(typeof password === 'string', 'Password cannot be null!');
+			assert(typeof roles === 'string', 'Roles cannot be null!');
+			assert(typeof street === 'string', 'Street cannot be null!');
+			assert(typeof city === 'string', 'City cannot be null!');
+			next();
+		} catch (err) {
+			const error = { status: 400, message: err.message };
+			next(error);
+		}
+	},
 	addUser: (req, res) => {
 		dbconnection.getConnection(function (err, connection) {
 			let user = req.body;
