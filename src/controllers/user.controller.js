@@ -18,11 +18,11 @@ let controller = {
 			city,
 		} = user;
 		try {
-			assert.match(
-				password,
-				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
-				'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
-			);
+			// assert.match(
+			// 	password,
+			// 	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/,
+			// 	'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
+			// );
 			assert(
 				typeof emailAdress === 'string',
 				'emailAdress cannot be null!'
@@ -34,22 +34,18 @@ let controller = {
 			);
 			assert(typeof firstName === 'string', 'First Name cannot be null!');
 			assert(typeof lastName === 'string', 'Last Name cannot be null!');
-			assert(typeof isActive === 'number', 'isActive cannot be null!');
-			assert(typeof password === 'string', 'Password cannot be null!');
+			//assert(typeof isActive === 'number', 'isActive cannot be null!');
 			assert(
 				typeof phoneNumber === 'string',
 				'Phonenumber cannot be null!'
-			);
-			assert(
-				typeof phoneNumber === 'string',
-				'Phonenumber must be a string!'
 			);
 			assert.match(
 				phoneNumber,
 				/^\d{10}$/,
 				'Phonenumber should be 10 digits'
 			);
-			assert(typeof roles === 'string', 'Roles cannot be null!');
+			assert(typeof password === 'string', 'Password cannot be null!');
+			//assert(typeof roles === 'string', 'Roles cannot be null!');
 			assert(typeof street === 'string', 'Street cannot be null!');
 			assert(typeof city === 'string', 'City cannot be null!');
 			next();

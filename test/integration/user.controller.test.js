@@ -101,7 +101,8 @@ describe('CRUD Users /api/user', () => {
 					lastName: 'Henk',
 					street: 'Meulenbroek 21',
 					city: 'Bleskensgraaf',
-					password: 'hoi',
+					phoneNumber: '0631490687',
+					password: 1,
 					emailAdress: 'daanvdm@hotmail.com',
 				})
 				.end((err, res) => {
@@ -111,7 +112,7 @@ describe('CRUD Users /api/user', () => {
 					message.should.be
 						.a('string')
 						.that.equals(
-							'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
+							'Password cannot be null!'
 						);
 					done();
 				});
