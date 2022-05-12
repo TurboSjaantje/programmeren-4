@@ -80,7 +80,7 @@ let controller = {
 						connection.release();
 						res.status(201).json({
 							status: 201,
-							message: `User has been succesfully registered`,
+							result: `User has been succesfully registered`,
 						});
 					}
 				}
