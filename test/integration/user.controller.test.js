@@ -334,9 +334,9 @@ describe('CRUD Users /api/user', () => {
 				.get('/api/user/2')
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(404);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('User with ID 2 not found');
 					done();
