@@ -103,19 +103,18 @@ let controller = {
 
 					// Don't use the connection here, it has been returned to the pool.
 					console.log('result = ', result.length);
-					if (result.length <= 0) {
+					if (result.length < 1) {
 						const error = {
 							status: 404,
 							message: `User with ID ${userId} not found`,
 						};
 						next(error);
 						return;
-					} else {
-						res.status(200).json({
-							status: 200,
-							message: result[0],
-						});
 					}
+					res.status(200).json({
+						status: 200,
+						message: result,
+					});
 				}
 			);
 		});
