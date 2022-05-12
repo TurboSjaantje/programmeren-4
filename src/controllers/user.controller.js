@@ -111,14 +111,14 @@ let controller = {
 					if (result.length < 1) {
 						const error = {
 							status: 404,
-							result: `User with ID ${userId} not found`,
+							message: `User with ID ${userId} not found`,
 						};
 						next(error);
 						return;
 					}
 					res.status(200).json({
 						status: 200,
-						result: result[0],
+						message: result[0],
 					});
 				}
 			);
