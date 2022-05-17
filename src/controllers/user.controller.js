@@ -280,7 +280,7 @@ let controller = {
 					} else {
 						res.status(400).json({
 							status: 400,
-							message: `User was not found!`,
+							message: `User does not exist`,
 						});
 					}
 				}
