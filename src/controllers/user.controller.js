@@ -56,7 +56,6 @@ let controller = {
 	},
 	validateUpdateUser: (req, res, next) => {
 		let user = req.body;
-
 		let {
 			firstName,
 			lastName,
@@ -130,7 +129,7 @@ let controller = {
 						connection.release();
 						res.status(201).json({
 							status: 201,
-							result: `User ${user.firstName} has been succesfully registered`,
+							result: user
 						});
 					}
 				}

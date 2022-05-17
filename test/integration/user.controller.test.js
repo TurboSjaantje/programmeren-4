@@ -162,9 +162,17 @@ describe('CRUD Users /api/user', () => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
 					status.should.equals(201);
-					result.should.be
-						.a('string')
-						.that.equals('User Daan has been succesfully registered');
+					assert.deepEqual(result, {
+						firstName: 'Daan',
+						lastName: 'van der Meulen',
+						isActive: 1,
+						emailAdress: 'daanvdm@hotmail.com',
+						password: 'JeMoeder4!',
+						phoneNumber: '0631490687',
+						roles: 'editor,guest',
+						street: 'Meulenbroek',
+						city: 'Bleksensgraaf',
+					});
 					done();
 				});
 		});
