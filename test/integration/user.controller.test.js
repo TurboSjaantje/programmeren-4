@@ -164,7 +164,7 @@ describe('CRUD Users /api/user', () => {
 					status.should.equals(201);
 					result.should.be
 						.a('string')
-						.that.equals('User has been succesfully registered');
+						.that.equals('User Daan has been succesfully registered');
 					done();
 				});
 		});

@@ -130,7 +130,7 @@ let controller = {
 						connection.release();
 						res.status(201).json({
 							status: 201,
-							result: `User has been succesfully registered`,
+							result: `User ${user.firstName} has been succesfully registered`,
 						});
 					}
 				}
