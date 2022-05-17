@@ -541,9 +541,9 @@ describe('CRUD Users /api/user', () => {
 				.delete('/api/user/2')
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(400);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('User was not found!');
 					done();
@@ -561,9 +561,9 @@ describe('CRUD Users /api/user', () => {
 				.delete('/api/user/1')
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(200);
-					result.should.be
+					message.should.be
 						.a('string')
 						.that.equals('User with ID 1 deleted successfuly!');
 					done();

@@ -275,12 +275,12 @@ let controller = {
 					if (result.affectedRows > 0) {
 						res.status(200).json({
 							status: 200,
-							result: `User with ID ${userId} deleted successfuly!`,
+							message: `User with ID ${userId} deleted successfuly!`,
 						});
 					} else {
 						res.status(400).json({
 							status: 400,
-							result: `User was not found!`,
+							message: `User was not found!`,
 						});
 					}
 				}
