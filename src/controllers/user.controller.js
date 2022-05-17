@@ -128,11 +128,11 @@ let controller = {
 					} else {
 						connection.query(
 							`SELECT * FROM user WHERE emailAdress = "${user.emailAdress}"`,
-							function (error, results, fields) {
+							function (error, result, fields) {
 								connection.release();
 								res.status(201).json({
 									status: 201,
-									result: results,
+									result: result,
 								});
 							}
 						);
