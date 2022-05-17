@@ -170,7 +170,7 @@ let controller = {
 					}
 					res.status(200).json({
 						status: 200,
-						message: result,
+						message: result[0],
 					});
 				}
 			);

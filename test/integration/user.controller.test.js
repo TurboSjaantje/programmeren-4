@@ -357,20 +357,18 @@ describe('CRUD Users /api/user', () => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
 					status.should.equals(200);
-					assert.deepEqual(message, [
-						{
-							id: 1,
-							firstName: 'first',
-							lastName: 'last',
-							isActive: 1,
-							emailAdress: 'name@server.nl',
-							password: 'Password1!',
-							phoneNumber: '0000000000',
-							roles: 'editor,guest',
-							street: 'street',
-							city: 'city',
-						},
-					]);
+					assert.deepEqual(message, {
+						id: 1,
+						firstName: 'first',
+						lastName: 'last',
+						isActive: 1,
+						emailAdress: 'name@server.nl',
+						password: 'Password1!',
+						phoneNumber: '0000000000',
+						roles: 'editor,guest',
+						street: 'street',
+						city: 'city',
+					});
 					done();
 				});
 		});
