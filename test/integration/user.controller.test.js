@@ -167,7 +167,7 @@ describe('CRUD Users /api/user', () => {
 						isActive: 1,
 						emailAdress: 'daanvdm@hotmail.com',
 						password: 'JeMoeder4!',
-						phoneNumber: '-',
+						phoneNumber: '0631490687',
 						roles: 'editor,guest',
 						street: 'Meulenbroek',
 						city: 'Bleksensgraaf',

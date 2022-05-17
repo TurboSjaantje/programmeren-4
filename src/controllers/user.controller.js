@@ -105,16 +105,17 @@ let controller = {
 		}
 	},
 	addUser: (req, res) => {
-		dbconnection.getConnection(function (err, connection) {
-			let user = req.body;
-			if (err) throw err;
+		let user = req.body;
+		dbconnection.getConnection(function (error, connection) {
+			if (error) throw error;
 			connection.query(
-				'INSERT INTO user (firstName, lastName, street, city, emailAdress, password) VALUES(?, ?, ?, ?, ?, ?);',
+				'INSERT INTO user (firstName, lastName, street, city, phoneNumber, emailAdress, password) VALUES(?,?, ?, ?, ?, ?, ?);',
 				[
 					user.firstName,
 					user.lastName,
 					user.street,
 					user.city,
+					user.phoneNumber,
 					user.emailAdress,
 					user.password,
 				],
@@ -127,12 +128,13 @@ let controller = {
 						});
 					} else {
 						connection.query(
-							`SELECT * FROM user WHERE emailAdress = "${user.emailAdress}"`,
-							function (error, result, fields) {
+							`SELECT * FROM user WHERE emailAdress = ?`,
+							[user.emailAdress],
+							function (error, results, fields) {
 								connection.release();
 								res.status(201).json({
 									status: 201,
-									result: result[0],
+									result: results[0],
 								});
 							}
 						);
