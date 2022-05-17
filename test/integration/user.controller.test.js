@@ -355,9 +355,9 @@ describe('CRUD Users /api/user', () => {
 				.get('/api/user/1')
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, message } = res.body;
+					let { status, result } = res.body;
 					status.should.equals(200);
-					assert.deepEqual(message, {
+					assert.deepEqual(result, {
 						id: 1,
 						firstName: 'first',
 						lastName: 'last',
