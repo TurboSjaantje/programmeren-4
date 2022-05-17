@@ -132,7 +132,7 @@ let controller = {
 								connection.release();
 								res.status(201).json({
 									status: 201,
-									result: result,
+									result: result[0],
 								});
 							}
 						);
