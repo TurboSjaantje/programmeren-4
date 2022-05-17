@@ -126,11 +126,16 @@ let controller = {
 							message: `The email-address: ${user.emailAdress} has already been taken!`,
 						});
 					} else {
-						connection.release();
-						res.status(201).json({
-							status: 201,
-							result: user
-						});
+						connection.query(
+							`SELECT * FROM user WHERE emailAdress = "${user.emailAdress}"`,
+							function (error, results, fields) {
+								connection.release();
+								res.status(201).json({
+									status: 201,
+									result: results,
+								});
+							}
+						);
 					}
 				}
 			);

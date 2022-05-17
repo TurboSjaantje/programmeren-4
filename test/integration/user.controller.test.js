@@ -29,22 +29,20 @@ describe('CRUD Users /api/user', () => {
 	describe('UC-201 Register New User', () => {
 		beforeEach((done) => {
 			console.log('beforeEach called');
-			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
-				if (err) throw err; // not connected!
-
-				// Use the connection
+				if (err) throw err;
 				connection.query(
-					CLEAR_DB + INSERT_USER,
-					function (error, results, fields) {
-						// When done with the connection, release it.
-						connection.release();
-
-						// Handle error after the release.
-						if (error) throw error;
-						// Let op dat je done() pas aanroept als de query callback eindigt!
-						console.log('beforeEach done');
-						done();
+					'ALTER TABLE user AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							CLEAR_DB + INSERT_USER,
+							function (error, results, fields) {
+								connection.release();
+								if (error) throw error;
+								console.log('beforeEach done');
+								done();
+							}
+						);
 					}
 				);
 			});
@@ -162,17 +160,20 @@ describe('CRUD Users /api/user', () => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
 					status.should.equals(201);
-					assert.deepEqual(result, {
-						firstName: 'Daan',
-						lastName: 'van der Meulen',
-						isActive: 1,
-						emailAdress: 'daanvdm@hotmail.com',
-						password: 'JeMoeder4!',
-						phoneNumber: '0631490687',
-						roles: 'editor,guest',
-						street: 'Meulenbroek',
-						city: 'Bleksensgraaf',
-					});
+					assert.deepEqual(result, [
+						{
+							id: 2,
+							firstName: 'Daan',
+							lastName: 'van der Meulen',
+							isActive: 1,
+							emailAdress: 'daanvdm@hotmail.com',
+							password: 'JeMoeder4!',
+							phoneNumber: '-',
+							roles: 'editor,guest',
+							street: 'Meulenbroek',
+							city: 'Bleksensgraaf',
+						},
+					]);
 					done();
 				});
 		});
