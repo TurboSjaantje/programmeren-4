@@ -545,7 +545,7 @@ describe('CRUD Users /api/user', () => {
 					status.should.equals(400);
 					message.should.be
 						.a('string')
-						.that.equals('User was not found!');
+						.that.equals('User does not exist');
 					done();
 				});
 		});
