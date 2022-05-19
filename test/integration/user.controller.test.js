@@ -6,6 +6,7 @@ const server = require('../../index');
 const assert = require('assert');
 require('dotenv').config();
 const dbconnection = require('../../database/dbconnection');
+const logger = require('../../src/config/config').logger;
 
 chai.should();
 chai.use(chaiHttp);
@@ -28,7 +29,7 @@ const INSERT_USER2 =
 describe('CRUD Users /api/user', () => {
 	describe('UC-201 Register New User', () => {
 		beforeEach((done) => {
-			console.log('beforeEach called');
+			logger.debug('beforeEach called');
 			dbconnection.getConnection(function (err, connection) {
 				if (err) throw err;
 				connection.query(
@@ -39,7 +40,7 @@ describe('CRUD Users /api/user', () => {
 							function (error, results, fields) {
 								connection.release();
 								if (error) throw error;
-								console.log('beforeEach done');
+								logger.debug('beforeEach done');
 								done();
 							}
 						);
@@ -172,7 +173,7 @@ describe('CRUD Users /api/user', () => {
 						street: 'Meulenbroek',
 						city: 'Bleksensgraaf',
 					});
-					console.log(result);
+					logger.debug(result);
 					done();
 				});
 		});
@@ -182,7 +183,7 @@ describe('CRUD Users /api/user', () => {
 		//created two seperate describes so i could test on an empty db
 		describe('UC-202-1 Show 0 users/api/user', () => {
 			beforeEach((done) => {
-				console.log('beforeEach called');
+				logger.debug('beforeEach called');
 				// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 				dbconnection.getConnection(function (err, connection) {
 					if (err) throw err; // not connected!
@@ -197,7 +198,7 @@ describe('CRUD Users /api/user', () => {
 							// Handle error after the release.
 							if (error) throw error;
 							// Let op dat je done() pas aanroept als de query callback eindigt!
-							console.log('beforeEach done');
+							logger.debug('beforeEach done');
 							done();
 						}
 					);
@@ -219,7 +220,7 @@ describe('CRUD Users /api/user', () => {
 
 		describe('UC-202-2 Show 2 users/api/user', () => {
 			beforeEach((done) => {
-				console.log('beforeEach called');
+				logger.debug('beforeEach called');
 				// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 				dbconnection.getConnection(function (err, connection) {
 					if (err) throw err; // not connected!
@@ -234,7 +235,7 @@ describe('CRUD Users /api/user', () => {
 							// Handle error after the release.
 							if (error) throw error;
 							// Let op dat je done() pas aanroept als de query callback eindigt!
-							console.log('beforeEach done');
+							logger.debug('beforeEach done');
 							done();
 						}
 					);
@@ -284,7 +285,7 @@ describe('CRUD Users /api/user', () => {
 
 	describe('UC-203 Get User Profile /api/user', () => {
 		beforeEach((done) => {
-			console.log('beforeEach called');
+			logger.debug('beforeEach called');
 			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
 				if (err) throw err; // not connected!
@@ -299,7 +300,7 @@ describe('CRUD Users /api/user', () => {
 						// Handle error after the release.
 						if (error) throw error;
 						// Let op dat je done() pas aanroept als de query callback eindigt!
-						console.log('beforeEach done');
+						logger.debug('beforeEach done');
 						done();
 					}
 				);
@@ -311,7 +312,7 @@ describe('CRUD Users /api/user', () => {
 
 	describe('UC-204 Get User Details /api/user/?:id', () => {
 		beforeEach((done) => {
-			console.log('beforeEach called');
+			logger.debug('beforeEach called');
 			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
 				if (err) throw err; // not connected!
@@ -326,7 +327,7 @@ describe('CRUD Users /api/user', () => {
 						// Handle error after the release.
 						if (error) throw error;
 						// Let op dat je done() pas aanroept als de query callback eindigt!
-						console.log('beforeEach done');
+						logger.debug('beforeEach done');
 						done();
 					}
 				);
@@ -376,7 +377,7 @@ describe('CRUD Users /api/user', () => {
 
 	describe('UC-205 Edit User Details /api/user', () => {
 		beforeEach((done) => {
-			console.log('beforeEach called');
+			logger.debug('beforeEach called');
 			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
 				if (err) throw err; // not connected!
@@ -391,7 +392,7 @@ describe('CRUD Users /api/user', () => {
 						// Handle error after the release.
 						if (error) throw error;
 						// Let op dat je done() pas aanroept als de query callback eindigt!
-						console.log('beforeEach done');
+						logger.debug('beforeEach done');
 						done();
 					}
 				);
@@ -514,7 +515,7 @@ describe('CRUD Users /api/user', () => {
 
 	describe('UC-206 Delete User', () => {
 		beforeEach((done) => {
-			console.log('beforeEach called');
+			logger.debug('beforeEach called');
 			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
 				if (err) throw err; // not connected!
@@ -529,7 +530,7 @@ describe('CRUD Users /api/user', () => {
 						// Handle error after the release.
 						if (error) throw error;
 						// Let op dat je done() pas aanroept als de query callback eindigt!
-						console.log('beforeEach done');
+						logger.debug('beforeEach done');
 						done();
 					}
 				);
