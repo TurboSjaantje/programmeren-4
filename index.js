@@ -32,24 +32,24 @@ app.all('*', (req, res) => {
 
 //Error Handling
 app.use((err, req, res, next) => {
-	logger.debug('Error handler called.');s
+	logger.debug('Error handler called.');
 	res.status(err.status).json(err);
 });
 
 //Start server
 app.listen(port, () => {
-	logger.debug(`Example app listening on port ${port}`)
+	logger.debug(`Example app listening on port ${port}`);
 });
 
 //SIGN IN
 process.on('SIGINT', () => {
-    logger.debug('SIGINT signal received: closing HTTP server')
-    dbconnection.end((err) => {
-        logger.debug('Database connection closed')
-    })
-    app.close(() => {
-        logger.debug('HTTP server closed')
-    })
-})
+	logger.debug('SIGINT signal received: closing HTTP server');
+	dbconnection.end((err) => {
+		logger.debug('Database connection closed');
+	});
+	app.close(() => {
+		logger.debug('HTTP server closed');
+	});
+});
 
 module.exports = app;
