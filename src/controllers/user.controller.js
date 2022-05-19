@@ -1,6 +1,6 @@
 const dbconnection = require('../../database/dbconnection');
+const logger = require('../config/config').logger;
 const assert = require('assert');
-//const { is } = require('express/lib/request');
 
 let controller = {
 	validateUser: (req, res, next) => {
@@ -159,7 +159,7 @@ let controller = {
 					if (error) throw error;
 
 					// Don't use the connection here, it has been returned to the pool.
-					console.log('result = ', result.length);
+					logger.debug('result = ', result.length);
 					if (result.length < 1) {
 						const error = {
 							status: 404,
@@ -191,7 +191,7 @@ let controller = {
 					if (error) throw error;
 
 					// Don't use the connection here, it has been returned to the pool.
-					console.log('result = ', result.length);
+					logger.debug('result = ', result.length);
 					res.status(200).json({
 						status: 200,
 						result: result,
@@ -209,7 +209,7 @@ let controller = {
 	updateUserFromId: (req, res) => {
 		const userId = req.params.userId;
 		const updateUser = req.body;
-		console.log(`User with ID ${userId} requested to be updated`);
+		logger.debug(`User with ID ${userId} requested to be updated`);
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err;
 			connection.query(
@@ -271,7 +271,7 @@ let controller = {
 					if (error) throw error;
 
 					// Don't use the connection here, it has been returned to the pool.
-					console.log('result = ', result.length);
+					logger.debug('result = ', result.length);
 					if (result.affectedRows > 0) {
 						res.status(200).json({
 							status: 200,
