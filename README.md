@@ -58,6 +58,12 @@ This keeps the data secure and provides login functionality to the application.
 	"street": "String",
 	"city": "String"
 }
+```, ##### Response
+
+```json
+{
+	...user
+}
 ```
 
 ##### Response
@@ -78,7 +84,7 @@ This keeps the data secure and provides login functionality to the application.
 	</tr>
     <tr>
         <td>POST /api/user</td>
-        <td>{<br>	"firstName": "String",<br>	"lastName": "String",<br>	"isActive": Number,<br>"	emailAdress: "Valid email",<br>	  "password": "String",<br>	  "phoneNumber": "Valid phonenumber",<br>	"street": "String",<br>	  "city": "String"<br>}</td>
+        <td>{<br>	"firstName": "String",<br>	"lastName": "String",<br>	"isActive": Number,<br>	"emailAdress: "Valid email",<br>	  "password": "String",<br>	  "phoneNumber": "Valid phonenumber",<br>	"street": "String",<br>	  "city": "String"<br>}</td>
 		<td></td>
     </tr>
     <tr>
