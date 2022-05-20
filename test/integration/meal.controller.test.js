@@ -285,42 +285,37 @@ describe('CRUD Meals /api/meal', () => {
 					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
 				)
 				.send({
-					dateTime: '2022-03-22 16:35:00',
-					maxAmountOfParticipants: 4,
-					price: 13.75,
-					imageUrl:
-						'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
-					cookId: 1,
-					name: 'Pasta Bolognese met tomaat, spekjes en kaas',
-					description:
-						'Een heerlijke klassieker! Altijd goed voor tevreden gesmikkel!',
+					name: 'Awesome meal',
+					description: 'this is a test meal',
 					isActive: 1,
 					isVega: 0,
 					isVegan: 0,
 					isToTakeHome: 1,
+					datetime: '2022-03-20 12:01:05',
+					imageUrl: 'https://google.com/meal',
 					allergenes: ['noten'],
+					maxAmountOfParticipants: 1,
+					price: 15.99,
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
-					status.should.equals(401);
+					status.should.equals(201);
 					assert.deepEqual(result, {
 						allergenes: 'noten',
 						cookId: 1,
 						createDate: result.createDate,
-						dateTime: null,
-						description:
-							'Een heerlijke klassieker! Altijd goed voor tevreden gesmikkel!',
+						dateTime: result.dateTime,
+						description: 'this is a test meal',
 						id: 1,
-						imageUrl:
-							'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
+						imageUrl: 'https://google.com/meal',
 						isActive: 1,
 						isToTakeHome: 1,
 						isVega: 0,
 						isVegan: 0,
-						maxAmountOfParticipants: 4,
-						name: 'Pasta Bolognese met tomaat, spekjes en kaas',
-						price: '13.75',
+						maxAmountOfParticipants: 1,
+						name: 'Awesome meal',
+						price: '15.99',
 						updateDate: result.updateDate,
 					});
 					done();
