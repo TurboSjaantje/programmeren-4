@@ -31,12 +31,12 @@ router.get(
 
 router.get(
 	'/api/user',
-	/*authController.validateToken,*/
 	userController.getAllUsers
 );
 
 router.put(
 	'/api/user/:userId',
+	authController.validateToken,
 	userController.validateUpdateUser,
 	userController.updateUserFromId
 );

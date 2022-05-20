@@ -366,7 +366,7 @@ describe('CRUD Users /api/user', () => {
 			});
 		});
 
-		it('TC-204-1 Invalid token /api/user', (done) => {
+		it('TC-204-1 User not logged in /api/user', (done) => {
 			chai.request(server)
 				.get('/api/user/1')
 				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))
@@ -428,20 +428,13 @@ describe('CRUD Users /api/user', () => {
 	describe('UC-205 Edit User Details /api/user', () => {
 		beforeEach((done) => {
 			logger.debug('beforeEach called');
-			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
-				if (err) throw err; // not connected!
-
-				// Use the connection
+				if (err) throw err;
 				connection.query(
 					CLEAR_DB + INSERT_USER,
 					function (error, results, fields) {
-						// When done with the connection, release it.
 						connection.release();
-
-						// Handle error after the release.
 						if (error) throw error;
-						// Let op dat je done() pas aanroept als de query callback eindigt!
 						logger.debug('beforeEach done');
 						done();
 					}
@@ -452,6 +445,10 @@ describe('CRUD Users /api/user', () => {
 		it('TC-205-1 Email missing /api/user', (done) => {
 			chai.request(server)
 				.put('/api/user/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.send({
 					firstName: 'Daan',
 					lastName: 'van der Meulen',
@@ -476,6 +473,10 @@ describe('CRUD Users /api/user', () => {
 		it('TC-205-3 Invalid phoneNumber /api/user', (done) => {
 			chai.request(server)
 				.put('/api/user/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.send({
 					firstName: 'Daan',
 					lastName: 'van der Meulen',
@@ -501,6 +502,10 @@ describe('CRUD Users /api/user', () => {
 		it('TC-205-4 User does not exist /api/user', (done) => {
 			chai.request(server)
 				.put('/api/user/2')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.send({
 					firstName: 'Daan',
 					lastName: 'van der Meulen',
@@ -525,12 +530,26 @@ describe('CRUD Users /api/user', () => {
 				});
 		});
 
-		//Could not implement this one yet becuase token functionality was not yet required
-		// xit('TC-205-5 User not signed in /api/user', (done) => {});
+		it('TC-205-5 User not signed in /api/user', (done) => {
+			chai.request(server)
+				.put('/api/user/1')
+				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be.a('string').that.equals('Not authorized');
+					done();
+				});
+		});
 
 		it('TC-205-6 User succesfully edited /api/user', (done) => {
 			chai.request(server)
 				.put('/api/user/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.send({
 					firstName: 'Daan',
 					lastName: 'van der Meulen',
