@@ -30,22 +30,31 @@ This keeps the data secure and provides login functionality to the application.
 
 ```json
 {
-	"emailAdress": "email@server.nl",
-	"password": "secret"
+	"emailAdress": "Valid email",
+	"password": "String"
 }
 ```
 
 ### User
 
-#### Get all
+#### Register
 
 ```http
-  GET /api/items
+  POST /api/user
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+```json
+{
+	"firstName": "String",
+	"lastName": "String",
+	"isActive": Number,
+	"emailAdress": "Valid email",
+	"password": "String",
+	"phoneNumber": "Valid phonenumber",
+	"street": "String",
+	"city": "String"
+}
+```
 
 #### Get item
 
