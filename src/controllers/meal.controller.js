@@ -158,9 +158,7 @@ let controller = {
 		const newMealInfo = req.body;
 
 		dbconnection.getConnection(function (err, connection) {
-			if (err) throw err; // not connected!
-
-			// updates a meal based on id parameter
+			if (err) throw err; 
 			connection.query(
 				'UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, datetime = ?, imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;',
 				[
@@ -186,11 +184,8 @@ let controller = {
 						};
 						next(newError);
 					} else {
-						// checks if a row is affected (updated)
 						if (results.affectedRows > 0) {
-							if (err) throw err; // not connected!
-
-							// gets meal for the response if a row is changed
+							if (err) throw err;
 							connection.query(
 								'SELECT * FROM meal WHERE id = ?;',
 								[mealId],
@@ -262,3 +257,4 @@ let controller = {
 
 module.exports = controller;
 
+//test
