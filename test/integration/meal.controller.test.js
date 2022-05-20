@@ -156,7 +156,7 @@ describe('CRUD Meals /api/meal', () => {
 		});
 	});
 
-	describe('UC-301 Update Meal', () => {
+	describe('UC-302 Update Meal', () => {
 		beforeEach((done) => {
 			logger.debug('beforeEach called');
 			dbconnection.getConnection(function (err, connection) {

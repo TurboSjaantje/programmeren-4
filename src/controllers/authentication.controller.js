@@ -59,8 +59,8 @@ module.exports = {
 											userinfo
 										);
 										res.status(200).json({
-											statusCode: 200,
-											results: { ...userinfo, token },
+											status: 200,
+											result: { ...userinfo, token },
 										});
 									}
 								);
@@ -69,9 +69,9 @@ module.exports = {
 									'User not found or password invalid'
 								);
 								res.status(401).json({
+									status: 401,
 									message:
 										'User not found or password invalid',
-									datetime: new Date().toISOString(),
 								});
 							}
 						}
@@ -92,12 +92,15 @@ module.exports = {
 				typeof req.body.password === 'string',
 				'password must be a string.'
 			);
+			assert(req.body.emailAdress != null, 'email cannot be null');
+			assert(req.body.password != null, 'password cannot be null');
 			next();
-		} catch (ex) {
-			res.status(422).json({
-				error: ex.toString(),
-				datetime: new Date().toISOString(),
-			});
+		} catch (error) {
+			const err = {
+				status: 400,
+				message: error.message,
+			};
+			next(err);
 		}
 	},
 
