@@ -39,10 +39,11 @@ This keeps the data secure and provides login functionality to the application.
 
 #### Register
 
+##### Route
 ```http
   POST /api/user
 ```
-
+##### Request
 ```json
 {
 	"firstName": "String",
@@ -53,6 +54,12 @@ This keeps the data secure and provides login functionality to the application.
 	"phoneNumber": "Valid phonenumber",
 	"street": "String",
 	"city": "String"
+}
+```
+##### Response
+```json
+{
+	...user
 }
 ```
 
