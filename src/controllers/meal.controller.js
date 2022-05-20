@@ -156,7 +156,6 @@ let controller = {
 	updateMealById: (req, res, next) => {
 		const mealId = req.params.mealId;
 		const newMealInfo = req.body;
-		const userId = req.body;
 
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err; 

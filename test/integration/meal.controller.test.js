@@ -290,7 +290,7 @@ describe('CRUD Meals /api/meal', () => {
 					price: 13.75,
 					imageUrl:
 						'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
-					cookId: 3,
+					cookId: 1,
 					name: 'Pasta Bolognese met tomaat, spekjes en kaas',
 					description:
 						'Een heerlijke klassieker! Altijd goed voor tevreden gesmikkel!',
