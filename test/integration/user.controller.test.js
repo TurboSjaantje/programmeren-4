@@ -304,7 +304,6 @@ describe('CRUD Users /api/user', () => {
 			chai.request(server)
 				.get('/api/user/profile')
 				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))
-				.send({})
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
@@ -367,12 +366,26 @@ describe('CRUD Users /api/user', () => {
 			});
 		});
 
-		//not implemented because token functionality was not required yet
-		// xit('TC-204-1 Invalid token /api/user', (done) => {});
+		it('TC-204-1 Invalid token /api/user', (done) => {
+			chai.request(server)
+				.get('/api/user/1')
+				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be.a('string').that.equals('Not authorized');
+					done();
+				});
+		});
 
 		it('TC-204-2 Invalid userId /api/user', (done) => {
 			chai.request(server)
 				.get('/api/user/2')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
@@ -387,6 +400,10 @@ describe('CRUD Users /api/user', () => {
 		it('TC-204-3 Valid userId, get one user back /api/user', (done) => {
 			chai.request(server)
 				.get('/api/user/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
