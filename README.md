@@ -30,7 +30,7 @@ This keeps the data secure and provides login functionality to the application.
 
 ```json
 {
-	"emailAdress": "email",
+	"emailAdress": "email@server.nl",
 	"password": "secret"
 }
 ```
