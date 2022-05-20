@@ -18,6 +18,12 @@ router.post(
 );
 
 router.get(
+	'/api/user/profile',
+	authController.validateToken,
+	userController.getUserProfileFromId
+);
+
+router.get(
 	'/api/user/:userId',
 	/*authController.validateToken,*/
 	userController.getUserFromId
@@ -28,8 +34,6 @@ router.get(
 	/*authController.validateToken,*/
 	userController.getAllUsers
 );
-
-router.get('/api/user/profile', userController.getUserProfileFromId);
 
 router.put(
 	'/api/user/:userId',

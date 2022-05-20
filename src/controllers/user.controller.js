@@ -184,29 +184,44 @@ let controller = {
 		});
 	},
 	// UC-203
-	getUserProfileFromId: (req, res) => {
-		res.status(401).json({
-			status: 401,
-			result: `Function is not yet implemented!`,
+	getUserProfileFromId: (req, res, next) => {
+		const userId = req.userId;
+		dbconnection.getConnection(function (error, connection) {
+			if (error) throw error;
+			connection.query(
+				'SELECT * FROM user WHERE id = ?',
+				[userId],
+				function (error, result, fields) {
+					connection.release();
+					if (error) throw error;
+
+					logger.debug('result = ', result.length);
+					if (result.length < 1) {
+						const error = {
+							status: 404,
+							message: `User with id: ${userId} not found!`,
+						};
+						next(error);
+						return;
+					}
+					res.status(200).json({
+						status: 200,
+						result: result[0],
+					});
+				}
+			);
 		});
 	},
 	// UC-204
 	getUserFromId: (req, res, next) => {
 		const userId = req.params.userId;
 		dbconnection.getConnection(function (err, connection) {
-			if (err) throw error; //not connected
-
-			//Use the connection
+			if (err) throw error;
 			connection.query(
 				'SELECT * FROM user WHERE id = ' + userId + '',
 				function (error, result, fields) {
-					// When done with the connection, release it.
 					connection.release();
-
-					// Handle error afther the release.
 					if (error) throw error;
-
-					// Don't use the connection here, it has been returned to the pool.
 					logger.debug('result = ', result.length);
 					if (result.length < 1) {
 						const error = {

@@ -155,8 +155,8 @@ module.exports = {
 				if (err) {
 					logger.warn('Not authorized');
 					res.status(401).json({
-						error: 'Not authorized',
-						datetime: new Date().toISOString(),
+						status: 401,
+						message: 'Not authorized',
 					});
 				}
 				if (payload) {
