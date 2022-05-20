@@ -40,10 +40,13 @@ This keeps the data secure and provides login functionality to the application.
 #### Register
 
 ##### Route
+
 ```http
   POST /api/user
 ```
+
 ##### Request
+
 ```json
 {
 	"firstName": "String",
@@ -56,7 +59,9 @@ This keeps the data secure and provides login functionality to the application.
 	"city": "String"
 }
 ```
+
 ##### Response
+
 ```json
 {
 	...user
@@ -67,7 +72,7 @@ This keeps the data secure and provides login functionality to the application.
 
 <table>
     <tr>
-	<p>Titel</p>
+	<td>Titel</td>
         <td>
             hoi
         </td>
@@ -84,4 +89,3 @@ This keeps the data secure and provides login functionality to the application.
         </td>
     </tr>
 </table>
-
