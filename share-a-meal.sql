@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `meal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `meal` (
-  `id` int NOT NULL AUTO_INCREMENT,a
+  `id` int NOT NULL AUTO_INCREMENT,
   `isActive` tinyint NOT NULL DEFAULT '0',
   `isVega` tinyint NOT NULL DEFAULT '0',
   `isVegan` tinyint NOT NULL DEFAULT '0',
