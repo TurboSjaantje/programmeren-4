@@ -141,8 +141,8 @@ module.exports = {
 		if (!authHeader) {
 			logger.warn('Authorization header missing!');
 			res.status(401).json({
-				error: 'Authorization header missing!',
-				datetime: new Date().toISOString(),
+				status: 401,
+				message: 'Authorization header missing!',
 			});
 		} else {
 			// Strip the word 'Bearer ' from the headervalue

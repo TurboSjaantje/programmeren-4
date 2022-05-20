@@ -12,28 +12,25 @@ let controller = {
 			meal;
 
 		try {
-			assert(typeof name === 'string', 'Name should be a string');
+			assert(typeof name === 'string', 'Name should be a string!');
 			assert(
 				typeof description === 'string',
-				'Description should be a string'
+				'Description should be a string!'
 			);
 			assert(
 				typeof imageUrl === 'string',
-				'Image URL should be a string'
+				'Image URL should be a string!'
 			);
 			assert(
 				typeof maxAmountOfParticipants === 'number',
-				'maxAmountofParticipants should be a number'
+				'maxAmountofParticipants should be a number!'
 			);
-			assert(typeof price === 'number', 'Price should be a number');
+			assert(typeof price === 'number', 'Price should be a number!');
 
 			next();
-		} catch (error) {
-			const err = {
-				status: 400,
-				message: error.message,
-			};
-			next(err);
+		} catch (err) {
+			const error = { status: 400, message: err.message };
+			next(error);
 		}
 	},
 	// Validate updating meal
@@ -70,7 +67,7 @@ let controller = {
 	// UC-301
 	registerMeal: (req, res, next) => {
 		let meal = req.body;
-		const cookId = req.userId;
+		let cookId = req.userId;
 		logger.debug(meal);
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err; // not connected!
@@ -105,21 +102,11 @@ let controller = {
 							'SELECT * FROM meal ORDER BY id DESC LIMIT 1;',
 							function (error, results, fields) {
 								if (error) throw error;
-								connection.query(
-									'SELECT * FROM user WHERE id = ' + cookId,
-									function (error, resultss, fields) {
-										connection.release();
-										if (error) throw error;
-										let response = [
-											{ ...results[0] },
-											{ ...resultss[0] },
-										];
-										res.status(201).json({
-											status: 201,
-											result: response,
-										});
-									}
-								);
+
+								res.status(201).json({
+									status: 201,
+									result: results[0],
+								});
 							}
 						);
 					}
