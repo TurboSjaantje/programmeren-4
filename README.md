@@ -1,6 +1,6 @@
 # programmeren-4-share-a-meal
 
-
+[![Deploy to Heroku](https://github.com/TurboSjaantje/programmeren-4/actions/workflows/main.yml/badge.svg)](https://github.com/TurboSjaantje/programmeren-4/actions/workflows/main.yml)
 
 ## Getting started
 
