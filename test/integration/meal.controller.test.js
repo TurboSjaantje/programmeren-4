@@ -295,7 +295,7 @@ describe('CRUD Meals /api/meal', () => {
 					imageUrl: 'https://google.com/meal1',
 					allergenes: ['noten'],
 					maxAmountOfParticipants: 1,
-					price: 10.00,
+					price: 10.0,
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -318,6 +318,46 @@ describe('CRUD Meals /api/meal', () => {
 						price: '10.00',
 						updateDate: result.updateDate,
 					});
+					done();
+				});
+		});
+	});
+
+	describe('UC-303 Request List of meals', () => {
+		beforeEach((done) => {
+			logger.debug('beforeEach called');
+			dbconnection.getConnection(function (err, connection) {
+				if (err) throw err;
+				connection.query(
+					'ALTER TABLE meal AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							'ALTER TABLE user AUTO_INCREMENT = 1;',
+							function (error, result, fields) {
+								connection.query(
+									CLEAR_DB + INSERT_USER + INSERT_MEAL,
+									function (error, results, fields) {
+										connection.release();
+										if (error) throw error;
+										logger.debug('beforeEach done');
+										done();
+									}
+								);
+							}
+						);
+					}
+				);
+			});
+		});
+
+		it('TC-303-1 Get List of meals', (done) => {
+			chai.request(server)
+				.get('/api/meal')
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(200);
+					result.should.be.an('array').that.lengthOf(1)
 					done();
 				});
 		});
