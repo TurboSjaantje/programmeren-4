@@ -138,7 +138,7 @@ describe('CRUD Meals /api/meal', () => {
 						isVega: 0,
 						isVegan: 0,
 						isToTakeHome: 1,
-						dateTime: '2022-03-22 15:35:00',
+						dateTime: '2022-03-22T15:35:00.470Z',
 						maxAmountOfParticipants: 4,
 						price: '12.75',
 						imageUrl:
