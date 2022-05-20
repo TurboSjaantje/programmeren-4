@@ -285,17 +285,17 @@ describe('CRUD Meals /api/meal', () => {
 					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
 				)
 				.send({
-					name: 'Awesome meal',
-					description: 'this is a test meal',
+					name: 'Maaltijd',
+					description: 'Henk zn meal',
 					isActive: 1,
 					isVega: 0,
 					isVegan: 0,
 					isToTakeHome: 1,
 					datetime: '2022-03-20 12:01:05',
-					imageUrl: 'https://google.com/meal',
+					imageUrl: 'https://google.com/meal1',
 					allergenes: ['noten'],
 					maxAmountOfParticipants: 1,
-					price: 15.99,
+					price: 10.00,
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -306,16 +306,16 @@ describe('CRUD Meals /api/meal', () => {
 						cookId: 1,
 						createDate: result.createDate,
 						dateTime: result.dateTime,
-						description: 'this is a test meal',
+						description: 'Henk zn meal',
 						id: 1,
-						imageUrl: 'https://google.com/meal',
+						imageUrl: 'https://google.com/meal1',
 						isActive: 1,
 						isToTakeHome: 1,
 						isVega: 0,
 						isVegan: 0,
 						maxAmountOfParticipants: 1,
-						name: 'Awesome meal',
-						price: '15.99',
+						name: 'Maaltijd',
+						price: '10.00',
 						updateDate: result.updateDate,
 					});
 					done();
