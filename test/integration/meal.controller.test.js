@@ -156,56 +156,56 @@ describe('CRUD Meals /api/meal', () => {
 		});
 	});
 
-	describe('UC-301 Register Meal', () => {
-		beforeEach((done) => {
-			logger.debug('beforeEach called');
-			dbconnection.getConnection(function (err, connection) {
-				if (err) throw err;
-				connection.query(
-					'ALTER TABLE meal AUTO_INCREMENT = 1;',
-					(error, result, field) => {
-						connection.query(
-							'ALTER TABLE user AUTO_INCREMENT = 1;',
-							function (error, result, fields) {
-								connection.query(
-									CLEAR_DB + INSERT_USER + INSERT_MEAL,
-									function (error, results, fields) {
-										connection.release();
-										if (error) throw error;
-										logger.debug('beforeEach done');
-										done();
-									}
-								);
-							}
-						);
-					}
-				);
-			});
-		});
+	// describe('UC-302 Update Meal', () => {
+	// 	beforeEach((done) => {
+	// 		logger.debug('beforeEach called');
+	// 		dbconnection.getConnection(function (err, connection) {
+	// 			if (err) throw err;
+	// 			connection.query(
+	// 				'ALTER TABLE meal AUTO_INCREMENT = 1;',
+	// 				(error, result, field) => {
+	// 					connection.query(
+	// 						'ALTER TABLE user AUTO_INCREMENT = 1;',
+	// 						function (error, result, fields) {
+	// 							connection.query(
+	// 								CLEAR_DB + INSERT_USER + INSERT_MEAL,
+	// 								function (error, results, fields) {
+	// 									connection.release();
+	// 									if (error) throw error;
+	// 									logger.debug('beforeEach done');
+	// 									done();
+	// 								}
+	// 							);
+	// 						}
+	// 					);
+	// 				}
+	// 			);
+	// 		});
+	// 	});
 
-        it('TC-302-1 Required field missing', (done) => {
-			chai.request(server)
-				.post('/api/meal')
-				.set(
-					'authorization',
-					'Bearer ' + jwt.sign({ id: 1 }, jwtSecretKey)
-				)
-				.send({
-					maxAmountOfParticipants: 4,
-					price: 12.75,
-					imageUrl:
-						'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
-					name: 'Je Dikke Moeder',
-				})
-				.end((err, res) => {
-					res.should.be.an('object');
-					let { status, message } = res.body;
-					status.should.equals(400);
-					message.should.be
-						.a('string')
-						.that.equals('Description should be a string!');
-					done();
-				});
-		});
-	});
+    //     it('TC-302-1 Required field missing', (done) => {
+	// 		chai.request(server)
+	// 			.post('/api/meal')
+	// 			.set(
+	// 				'authorization',
+	// 				'Bearer ' + jwt.sign({ id: 1 }, jwtSecretKey)
+	// 			)
+	// 			.send({
+	// 				maxAmountOfParticipants: 4,
+	// 				price: 12.75,
+	// 				imageUrl:
+	// 					'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
+	// 				name: 'Je Dikke Moeder',
+	// 			})
+	// 			.end((err, res) => {
+	// 				res.should.be.an('object');
+	// 				let { status, message } = res.body;
+	// 				status.should.equals(400);
+	// 				message.should.be
+	// 					.a('string')
+	// 					.that.equals('Description should be a string!');
+	// 				done();
+	// 			});
+	// 	});
+	// });
 });
