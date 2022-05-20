@@ -73,8 +73,3 @@ This keeps the data secure and provides login functionality to the application.
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of item to fetch |
 
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
-
-> > > > > > > development
