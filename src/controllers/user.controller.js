@@ -291,21 +291,14 @@ let controller = {
 	},
 	// UC-206
 	deleteUserFromId: (req, res) => {
+		const userId = req.params.userId;
 		dbconnection.getConnection(function (err, connection) {
-			const userId = req.params.userId;
-			if (err) throw error; //not connected
-
-			//Use the connection
+			if (err) throw error;
 			connection.query(
 				'DELETE IGNORE FROM user WHERE Id = ' + userId,
 				function (error, result, fields) {
-					// When done with the connection, release it.
 					connection.release();
-
-					// Handle error afther the release.
 					if (error) throw error;
-
-					// Don't use the connection here, it has been returned to the pool.
 					logger.debug('result = ', result.length);
 					if (result.affectedRows > 0) {
 						res.status(200).json({

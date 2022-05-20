@@ -27,6 +27,9 @@ const INSERT_USER =
 const INSERT_USER2 =
 	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city` ) VALUES' +
 	'(2, "second", "secondlast", "secondname@server.nl", "Password1!", "0000000000", "secondstreet", "secondcity");';
+const INSERT_USER3 =
+	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city` ) VALUES' +
+	'(3, "third", "thirdlast", "thirdname@server.nl", "Password1!", "0000000000", "thirdstreet", "thirdcity");';
 
 //INSERT MEAL
 const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (1, 1, 1, 1, 1, '2022-05-20 06:36:27', 6, 6.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 1, 'Spaghetti Bolognese', 'Dé pastaklassieker bij uitstek.')`;
@@ -585,22 +588,20 @@ describe('CRUD Users /api/user', () => {
 	describe('UC-206 Delete User', () => {
 		beforeEach((done) => {
 			logger.debug('beforeEach called');
-			// maak de testdatabase leeg zodat we onze testen kunnen uitvoeren.
 			dbconnection.getConnection(function (err, connection) {
-				if (err) throw err; // not connected!
-
-				// Use the connection
+				if (err) throw err;
 				connection.query(
-					CLEAR_DB + INSERT_USER,
-					function (error, results, fields) {
-						// When done with the connection, release it.
-						connection.release();
-
-						// Handle error after the release.
-						if (error) throw error;
-						// Let op dat je done() pas aanroept als de query callback eindigt!
-						logger.debug('beforeEach done');
-						done();
+					'ALTER TABLE user AUTO_INCREMENT = 1;',
+					function (error, result, fields) {
+						connection.query(
+							CLEAR_DB + INSERT_USER + INSERT_USER2 + INSERT_USER3,
+							function (error, results, fields) {
+								connection.release();
+								if (error) throw error;
+								logger.debug('beforeEach done');
+								done();
+							}
+						);
 					}
 				);
 			});
@@ -608,7 +609,11 @@ describe('CRUD Users /api/user', () => {
 
 		it('TC-206-1 User does not exist /api/user', (done) => {
 			chai.request(server)
-				.delete('/api/user/2')
+				.delete('/api/user/999')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 3 }, jwtSecretKey)
+				)
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
@@ -620,15 +625,44 @@ describe('CRUD Users /api/user', () => {
 				});
 		});
 
-		//not implemented because token functionality was not required yet
-		// xit('TC-206-2 Not logged in /api/user', (done) => {});
-
-		//not implemented because token functionality was not required yet
-		// xit('TC-206-3 Actor is not owner /api/user', (done) => {});
-
-		it('TC-206-3 User deleted succesfully /api/user', (done) => {
+		it('TC-206-2 Not logged in /api/user', (done) => {
 			chai.request(server)
 				.delete('/api/user/1')
+				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be.a('string').that.equals('Not authorized');
+					done();
+				});
+		});
+
+		it('TC-206-3 Actor is not owner /api/user', (done) => {
+			chai.request(server)
+				.delete('/api/user/3')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(403);
+					message.should.be
+						.a('string')
+						.that.equals('User is not the owner');
+					done();
+				});
+		});
+
+		it('TC-206-4 User deleted succesfully /api/user', (done) => {
+			chai.request(server)
+				.delete('/api/user/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;

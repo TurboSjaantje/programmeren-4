@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 
 router.post(
 	'/api/user',
-	/*authController.validateToken,*/
 	userController.validateUser,
 	userController.addUser
 );
@@ -29,10 +28,7 @@ router.get(
 	userController.getUserFromId
 );
 
-router.get(
-	'/api/user',
-	userController.getAllUsers
-);
+router.get('/api/user', userController.getAllUsers);
 
 router.put(
 	'/api/user/:userId',
@@ -41,6 +37,11 @@ router.put(
 	userController.updateUserFromId
 );
 
-router.delete('/api/user/:userId', userController.deleteUserFromId);
+router.delete(
+	'/api/user/:userId',
+	authController.validateToken,
+	authController.validateOwnershipUser,
+	userController.deleteUserFromId
+);
 
 module.exports = router;
