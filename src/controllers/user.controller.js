@@ -159,7 +159,7 @@ let controller = {
 		let dbQuery = 'SELECT * FROM user';
 		if (active != undefined && name != undefined)
 			dbQuery = `SELECT * FROM user WHERE isActive = ${active} AND firstname LIKE '%${name}%'`;
-		else if (active != undefined && active != 'false' && active != 'true')
+		else if (active != undefined && active != 0 && active != 1)
 			res.status(401).json({
 				status: 401,
 				message: 'Invalid search term!',

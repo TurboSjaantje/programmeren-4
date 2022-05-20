@@ -28,8 +28,11 @@ const INSERT_USER2 =
 	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city` ) VALUES' +
 	'(2, "second", "secondlast", "secondname@server.nl", "Password1!", "0000000000", "secondstreet", "secondcity");';
 const INSERT_USER3 =
-	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city` ) VALUES' +
-	'(3, "third", "thirdlast", "thirdname@server.nl", "Password1!", "0000000000", "thirdstreet", "thirdcity");';
+	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city`, `isActive` ) VALUES' +
+	'(3, "third", "thirdlast", "thirdname@server.nl", "Password1!", "0000000000", "thirdstreet", "thirdcity", 0);';
+const INSERT_USER4 =
+	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city`, `isActive` ) VALUES' +
+	'(4, "fourth", "fourthlast", "fourthname@server.nl", "Password1!", "0000000000", "fourthstreet", "fourthcity", 0);';
 
 //INSERT MEAL
 const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (1, 1, 1, 1, 1, '2022-05-20 06:36:27', 6, 6.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 1, 'Spaghetti Bolognese', 'Dé pastaklassieker bij uitstek.')`;
@@ -268,6 +271,86 @@ describe('CRUD Users /api/user', () => {
 								city: 'secondcity',
 							},
 						]);
+						done();
+					});
+			});
+		});
+
+		describe('UC-202 Remaining test cases users/api/user', () => {
+			beforeEach((done) => {
+				logger.debug('beforeEach called');
+				dbconnection.getConnection(function (err, connection) {
+					if (err) throw err;
+					connection.query(
+						'ALTER TABLE meal AUTO_INCREMENT = 1;',
+						(error, result, field) => {
+							connection.query(
+								'ALTER TABLE user AUTO_INCREMENT = 1;',
+								function (error, result, fields) {
+									connection.query(
+										CLEAR_DB +
+											INSERT_USER +
+											INSERT_USER2 +
+											INSERT_USER3 +
+											INSERT_USER4,
+										function (error, results, fields) {
+											connection.release();
+											if (error) throw error;
+											logger.debug('beforeEach done');
+											done();
+										}
+									);
+								}
+							);
+						}
+					);
+				});
+			});
+
+			it('TC-202-3 Show users for non-existing name /api/user', (done) => {
+				chai.request(server)
+					.get('/api/user?name=fa;sldkfj;aslkjdf;lksdjf')
+					.end((err, res) => {
+						res.should.be.an('object');
+						let { status, result } = res.body;
+						status.should.equals(200);
+						result.should.be.an('array').that.lengthOf(0);
+						done();
+					});
+			});
+
+			it('TC-202-4 Show users for isActive=false /api/user', (done) => {
+				chai.request(server)
+					.get('/api/user?active=false')
+					.end((err, res) => {
+						res.should.be.an('object');
+						let { status, result } = res.body;
+						status.should.equals(200);
+						result.should.be.an('array').that.lengthOf(2);
+						done();
+					});
+			});
+
+			it('TC-202-5 Show users for isActive=true /api/user', (done) => {
+				chai.request(server)
+					.get('/api/user?active=true')
+					.end((err, res) => {
+						res.should.be.an('object');
+						let { status, result } = res.body;
+						status.should.equals(200);
+						result.should.be.an('array').that.lengthOf(2);
+						done();
+					});
+			});
+
+			it('TC-202-5 Show users for isActive=true /api/user', (done) => {
+				chai.request(server)
+					.get('/api/user?name=first')
+					.end((err, res) => {
+						res.should.be.an('object');
+						let { status, result } = res.body;
+						status.should.equals(200);
+						result.should.be.an('array').that.lengthOf(1);
 						done();
 					});
 			});
@@ -594,7 +677,10 @@ describe('CRUD Users /api/user', () => {
 					'ALTER TABLE user AUTO_INCREMENT = 1;',
 					function (error, result, fields) {
 						connection.query(
-							CLEAR_DB + INSERT_USER + INSERT_USER2 + INSERT_USER3,
+							CLEAR_DB +
+								INSERT_USER +
+								INSERT_USER2 +
+								INSERT_USER3,
 							function (error, results, fields) {
 								connection.release();
 								if (error) throw error;
