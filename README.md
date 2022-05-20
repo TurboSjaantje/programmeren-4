@@ -71,8 +71,12 @@ This keeps the data secure and provides login functionality to the application.
 ### User
 
 <table>
+	<tr>
+		<td><b>Route</b></td>
+		<td><b>Request</b></td>
+		<td><b>Response</b></td>
+	</tr>
     <tr>
-	<td>Titel</td>
         <td>
             hoi
         </td>
