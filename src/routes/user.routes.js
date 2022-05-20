@@ -28,7 +28,7 @@ router.get(
 	userController.getUserFromId
 );
 
-router.get('/api/user', userController.getAllUsers);
+router.get('/api/user', authController.validateToken, userController.getAllUsers);
 
 router.put(
 	'/api/user/:userId',

@@ -211,6 +211,10 @@ describe('CRUD Users /api/user', () => {
 			it('TC-202-2 Show 2 users /api/user', (done) => {
 				chai.request(server)
 					.get('/api/user')
+					.set(
+						'authorization',
+						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+					)
 					.end((err, res) => {
 						res.should.be.an('object');
 						let { status, result } = res.body;
@@ -241,6 +245,10 @@ describe('CRUD Users /api/user', () => {
 			it('TC-202-2 Show 2 users /api/user', (done) => {
 				chai.request(server)
 					.get('/api/user')
+					.set(
+						'authorization',
+						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+					)
 					.end((err, res) => {
 						res.should.be.an('object');
 						let { status, result } = res.body;
@@ -310,6 +318,10 @@ describe('CRUD Users /api/user', () => {
 			it('TC-202-3 Show users for non-existing name /api/user', (done) => {
 				chai.request(server)
 					.get('/api/user?name=fa;sldkfj;aslkjdf;lksdjf')
+					.set(
+						'authorization',
+						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+					)
 					.end((err, res) => {
 						res.should.be.an('object');
 						let { status, result } = res.body;
@@ -322,6 +334,10 @@ describe('CRUD Users /api/user', () => {
 			it('TC-202-4 Show users for isActive=false /api/user', (done) => {
 				chai.request(server)
 					.get('/api/user?active=false')
+					.set(
+						'authorization',
+						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+					)
 					.end((err, res) => {
 						res.should.be.an('object');
 						let { status, result } = res.body;
@@ -334,6 +350,10 @@ describe('CRUD Users /api/user', () => {
 			it('TC-202-5 Show users for isActive=true /api/user', (done) => {
 				chai.request(server)
 					.get('/api/user?active=true')
+					.set(
+						'authorization',
+						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+					)
 					.end((err, res) => {
 						res.should.be.an('object');
 						let { status, result } = res.body;
@@ -343,9 +363,13 @@ describe('CRUD Users /api/user', () => {
 					});
 			});
 
-			it('TC-202-5 Show users for isActive=true /api/user', (done) => {
+			it('TC-202-6 Show users for name=first /api/user', (done) => {
 				chai.request(server)
 					.get('/api/user?name=first')
+					.set(
+						'authorization',
+						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+					)
 					.end((err, res) => {
 						res.should.be.an('object');
 						let { status, result } = res.body;
@@ -355,8 +379,6 @@ describe('CRUD Users /api/user', () => {
 					});
 			});
 		});
-
-		//did not implement the searchterm functionality since it was not neede in swagger.ui
 	});
 
 	describe('UC-203 Get User Profile /api/user', () => {
