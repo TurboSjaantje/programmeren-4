@@ -78,7 +78,13 @@ This keeps the data secure and provides login functionality to the application.
 	</tr>
     <tr>
         <td>POST /api/user</td>
-        <td>```json hoi ````</td>
+        <td>
+
+		```json
+		hoi
+		```
+
+		</td>
 		<td></td>
     </tr>
     <tr>
