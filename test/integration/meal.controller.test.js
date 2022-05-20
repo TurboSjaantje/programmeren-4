@@ -156,4 +156,162 @@ describe('CRUD Meals /api/meal', () => {
 		});
 	});
 
+	describe('UC-301 Register Meal', () => {
+		beforeEach((done) => {
+			logger.debug('beforeEach called');
+			dbconnection.getConnection(function (err, connection) {
+				if (err) throw err;
+				connection.query(
+					'ALTER TABLE meal AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							'ALTER TABLE user AUTO_INCREMENT = 1;',
+							function (error, result, fields) {
+								connection.query(
+									CLEAR_DB +
+										INSERT_USER +
+										INSERT_USER2 +
+										INSERT_MEAL,
+									function (error, results, fields) {
+										connection.release();
+										if (error) throw error;
+										logger.debug('beforeEach done');
+										done();
+									}
+								);
+							}
+						);
+					}
+				);
+			});
+		});
+
+		it('TC-302-1 Required field missing', (done) => {
+			chai.request(server)
+				.put('/api/meal/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.send({
+					price: 69.69,
+					name: 'Een leuke test',
+				})
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(400);
+					message.should.be
+						.a('string')
+						.that.equals(
+							'maxAmountofParticipants should be a number'
+						);
+					done();
+				});
+		});
+
+		it('TC-302-2 Not logged in', (done) => {
+			chai.request(server)
+				.put('/api/meal/1')
+				.send({
+					maxAmountOfParticipants: 3,
+					price: 69.69,
+					name: 'Een leuke test',
+				})
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be
+						.a('string')
+						.that.equals('Authorization header missing!');
+					done();
+				});
+		});
+
+		it('TC-302-3 Not the meal owner', (done) => {
+			chai.request(server)
+				.put('/api/meal/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+				)
+				.send({
+					maxAmountOfParticipants: 3,
+					price: 69.69,
+					name: 'Een leuke test',
+				})
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(403);
+					message.should.be
+						.a('string')
+						.that.equals(
+							'User is not the owner of the meal that is being requested to be deleted or updated'
+						);
+					done();
+				});
+		});
+
+		it('TC-302-4 Meal does not exist', (done) => {
+			chai.request(server)
+				.put('/api/meal/999')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.send({
+					maxAmountOfParticipants: 3,
+					price: 69.69,
+					name: 'Een leuke test',
+				})
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be
+						.a('string')
+						.that.equals('Meal with ID 999 not found');
+					done();
+				});
+		});
+
+		it('TC-302-5 Meal updated succesfully', (done) => {
+			chai.request(server)
+				.put('/api/meal/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.send({
+					maxAmountOfParticipants: 3,
+					price: 69.69,
+					name: 'Een leuke test',
+				})
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(201);
+					assert.deepEqual(result, {
+						allergenes: '',
+						cookId: 1,
+						createDate: result.createDate,
+						dateTime: null,
+						description: '',
+						id: 1,
+						imageUrl: '',
+						isActive: 0,
+						isToTakeHome: 0,
+						isVega: 0,
+						isVegan: 0,
+						maxAmountOfParticipants: 3,
+						name: 'Een leuke test',
+						price: '69.69',
+						updateDate: result.updateDate,
+					});
+					done();
+				});
+		});
+	});
 });

@@ -36,19 +36,10 @@ let controller = {
 	// Validate updating meal
 	validateMealUpdate: (req, res, next) => {
 		let meal = req.body;
-		let { name, description, imageUrl, maxAmountOfParticipants, price } =
-			meal;
+		let { name, maxAmountOfParticipants, price } = meal;
 
 		try {
 			assert(typeof name === 'string', 'Name should be a string');
-			assert(
-				typeof description === 'string',
-				'Description should be a string'
-			);
-			assert(
-				typeof imageUrl === 'string',
-				'Image URL should be a string'
-			);
 			assert(
 				typeof maxAmountOfParticipants === 'number',
 				'maxAmountofParticipants should be a number'
@@ -205,25 +196,10 @@ let controller = {
 							function (error, meal, fields) {
 								if (error) throw error;
 
-								// Get user from updated meal
-								connection.query(
-									'SELECT * FROM user WHERE id = ?',
-									[userId],
-									function (error, user, fields) {
-										connection.release();
-										if (error) throw error;
-
-										let response = [
-											{ ...meal[0] },
-											{ ...user[0] },
-										];
-
-										res.status(201).json({
-											status: 201,
-											result: response,
-										});
-									}
-								);
+								res.status(201).json({
+									status: 201,
+									result: meal[0],
+								});
 							}
 						);
 					}
