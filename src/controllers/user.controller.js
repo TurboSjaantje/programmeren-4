@@ -148,27 +148,39 @@ let controller = {
 	},
 	// UC-202
 	getAllUsers: (req, res, next) => {
+		// Get params
+		let query = req.query;
+		let { active, name } = query;
+
+		if (active == 'false') active = 0;
+		else if (active == 'true') active = 1;
+
+		// Define query
+		let dbQuery = 'SELECT * FROM user';
+		if (active != undefined && name != undefined)
+			dbQuery = `SELECT * FROM user WHERE isActive = ${active} AND firstname LIKE '%${name}%'`;
+		else if (active != undefined && active != 'false' && active != 'true')
+			res.status(401).json({
+				status: 401,
+				message: 'Invalid search term!',
+			});
+		else if (active != undefined && name == undefined)
+			dbQuery = `SELECT * FROM user WHERE isActive = ${active}`;
+		else if (active == undefined && name != undefined)
+			dbQuery = `SELECT * FROM user WHERE firstname LIKE '%${name}%'`;
+
+		// Retrieve users
 		dbconnection.getConnection(function (err, connection) {
-			if (err) throw error; //not connected
-
-			//Use the connection
-			connection.query(
-				'SELECT * from user',
-				function (error, result, fields) {
-					// When done with the connection, release it.
-					connection.release();
-
-					// Handle error afther the release.
-					if (error) throw error;
-
-					// Don't use the connection here, it has been returned to the pool.
-					logger.debug('result = ', result.length);
-					res.status(200).json({
-						status: 200,
-						result: result,
-					});
-				}
-			);
+			if (err) throw error;
+			connection.query(dbQuery, function (error, result, fields) {
+				connection.release();
+				if (error) throw error;
+				logger.debug('result = ', result.length);
+				res.status(200).json({
+					status: 200,
+					result: result,
+				});
+			});
 		});
 	},
 	// UC-203

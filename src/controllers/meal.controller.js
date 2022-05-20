@@ -5,12 +5,12 @@ const { resourceUsage } = require('process');
 const { rollback } = require('../../database/dbconnection');
 
 let controller = {
+	// Validate new meal
 	validateMeal: (req, res, next) => {
 		let meal = req.body;
 		let { name, description, imageUrl, maxAmountOfParticipants, price } =
 			meal;
 
-		// validates meal attributes
 		try {
 			assert(typeof name === 'string', 'Name should be a string');
 			assert(
@@ -28,21 +28,20 @@ let controller = {
 			assert(typeof price === 'number', 'Price should be a number');
 
 			next();
-		} catch (err) {
-			const error = {
+		} catch (error) {
+			const err = {
 				status: 400,
-				message: err.message,
+				message: error.message,
 			};
-
-			next(error);
+			next(err);
 		}
 	},
+	// Validate updating meal
 	validateMealUpdate: (req, res, next) => {
 		let meal = req.body;
 		let { name, description, imageUrl, maxAmountOfParticipants, price } =
 			meal;
 
-		// validates meal attributes
 		try {
 			assert(typeof name === 'string', 'Name should be a string');
 			assert(
@@ -60,13 +59,12 @@ let controller = {
 			assert(typeof price === 'number', 'Price should be a number');
 
 			next();
-		} catch (err) {
-			const error = {
+		} catch (error) {
+			const err = {
 				status: 400,
-				message: err.message,
+				message: error.message,
 			};
-
-			next(error);
+			next(err);
 		}
 	},
 	// UC-301
@@ -138,7 +136,6 @@ let controller = {
 				function (error, result, fields) {
 					connection.release();
 					if (error) throw error;
-
 					logger.debug('result= ', result.length);
 					res.status(200).json({
 						status: 200,
