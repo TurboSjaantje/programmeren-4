@@ -1,4 +1,3 @@
-
 // Authentication controller
 const assert = require('assert');
 const jwt = require('jsonwebtoken');
@@ -10,9 +9,7 @@ const jwtSecretKey = require('../config/config').jwtSecretKey;
 
 module.exports = {
 	login(req, res, next) {
-
 		dbconnection.getConnection((err, connection) => {
-
 			if (err) {
 				logger.error('Error getting connection from dbconnection');
 				res.status(500).json({
@@ -85,7 +82,6 @@ module.exports = {
 	},
 
 	validateLogin(req, res, next) {
-
 		// Verify that we receive the expected input
 		try {
 			assert(
@@ -105,15 +101,44 @@ module.exports = {
 		}
 	},
 
+	validateOwnership(req, res, next) {
+		const userId = req.userId;
+		const mealId = req.params.mealId;
+		dbconnection.getConnection(function (err, connection) {
+			if (err) throw err;
+			connection.query(
+				'SELECT * FROM meal WHERE id = ?;',
+				[mealId],
+				function (error, results, fields) {
+					if (error) throw error;
+					connection.release();
+					if (results[0]) {
+						const cookId = results[0].cookId;
+						if (userId !== cookId) {
+							res.status(403).json({
+								status: 403,
+								message:
+									'User is not the owner of the meal that is being requested to be deleted or updated',
+							});
+						} else {
+							next();
+						}
+					} else {
+						next();
+					}
+				}
+			);
+		});
+	},
+
 	validateToken(req, res, next) {
-		
-        logger.info('validateToken called');
-		
-        // logger.trace(req.headers)
+		logger.info('validateToken called');
+
+		// logger.trace(req.headers)
 		// The headers should contain the authorization-field with value 'Bearer [token]'
 		const authHeader = req.headers.authorization;
-		
-        if (!authHeader) {
+
+		if (!authHeader) {
 			logger.warn('Authorization header missing!');
 			res.status(401).json({
 				error: 'Authorization header missing!',

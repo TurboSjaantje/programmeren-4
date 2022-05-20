@@ -10,6 +10,7 @@ const port = process.env.PORT;
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const userRouter = require('./src/routes/user.routes');
+const mealRoutes = require('./src/routes/meal.routes');
 
 //Log all requests
 app.all('*', (req, res, next) => {
@@ -20,6 +21,7 @@ app.all('*', (req, res, next) => {
 
 //All valid routes
 app.use(userRouter);
+app.use(mealRoutes);
 app.use(authRoutes);
 
 //All unvalid routes

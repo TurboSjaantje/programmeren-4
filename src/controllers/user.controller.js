@@ -3,6 +3,7 @@ const logger = require('../config/config').logger;
 const assert = require('assert');
 
 let controller = {
+	// Validate New User
 	validateUser: (req, res, next) => {
 		let user = req.body;
 
@@ -54,6 +55,7 @@ let controller = {
 			next(error);
 		}
 	},
+	// Validate Update User
 	validateUpdateUser: (req, res, next) => {
 		let user = req.body;
 		let {
@@ -104,6 +106,7 @@ let controller = {
 			next(error);
 		}
 	},
+	// UC-201
 	addUser: (req, res) => {
 		let user = req.body;
 		dbconnection.getConnection(function (error, connection) {
@@ -143,6 +146,39 @@ let controller = {
 			);
 		});
 	},
+	// UC-202
+	getAllUsers: (req, res, next) => {
+		dbconnection.getConnection(function (err, connection) {
+			if (err) throw error; //not connected
+
+			//Use the connection
+			connection.query(
+				'SELECT * from user',
+				function (error, result, fields) {
+					// When done with the connection, release it.
+					connection.release();
+
+					// Handle error afther the release.
+					if (error) throw error;
+
+					// Don't use the connection here, it has been returned to the pool.
+					logger.debug('result = ', result.length);
+					res.status(200).json({
+						status: 200,
+						result: result,
+					});
+				}
+			);
+		});
+	},
+	// UC-203
+	getUserProfileFromId: (req, res) => {
+		res.status(401).json({
+			status: 401,
+			result: `Function is not yet implemented!`,
+		});
+	},
+	// UC-204
 	getUserFromId: (req, res, next) => {
 		const userId = req.params.userId;
 		dbconnection.getConnection(function (err, connection) {
@@ -176,36 +212,7 @@ let controller = {
 			);
 		});
 	},
-	getAllUsers: (req, res, next) => {
-		dbconnection.getConnection(function (err, connection) {
-			if (err) throw error; //not connected
-
-			//Use the connection
-			connection.query(
-				'SELECT * from user',
-				function (error, result, fields) {
-					// When done with the connection, release it.
-					connection.release();
-
-					// Handle error afther the release.
-					if (error) throw error;
-
-					// Don't use the connection here, it has been returned to the pool.
-					logger.debug('result = ', result.length);
-					res.status(200).json({
-						status: 200,
-						result: result,
-					});
-				}
-			);
-		});
-	},
-	getUserProfileFromId: (req, res) => {
-		res.status(401).json({
-			status: 401,
-			result: `Function is not yet implemented!`,
-		});
-	},
+	// UC-205
 	updateUserFromId: (req, res) => {
 		const userId = req.params.userId;
 		const updateUser = req.body;
@@ -255,6 +262,7 @@ let controller = {
 			connection.release();
 		});
 	},
+	// UC-206
 	deleteUserFromId: (req, res) => {
 		dbconnection.getConnection(function (err, connection) {
 			const userId = req.params.userId;
