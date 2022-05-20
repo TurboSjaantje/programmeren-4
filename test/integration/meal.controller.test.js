@@ -29,8 +29,8 @@ const INSERT_USER2 =
 	'(2, "second", "secondlast", "secondname@server.nl", "Password1!", "0000000000", "secondstreet", "secondcity");';
 
 //INSERT MEAL
-const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (1, 1, 1, 1, 1, '2022-05-20T06:36:27.458Z', 6, 6.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 1, 'Spaghetti Bolognese', 'Dé pastaklassieker bij uitstek.')`;
-const INSERT_MEAL2 = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (2, 0, 0, 0, 0, '2022-06-20T06:36:27.458Z', 7, 7.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 2, 'Spaghetti Bolognese 2', 'Dé pastaklassieker bij uitstek 2.')`;
+const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (1, 1, 1, 1, 1, '2022-05-20 06:36:27.458Z', 6, 6.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 1, 'Spaghetti Bolognese', 'Dé pastaklassieker bij uitstek.')`;
+const INSERT_MEAL2 = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (2, 0, 0, 0, 0, '2022-06-20 06:36:27.458Z', 7, 7.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 2, 'Spaghetti Bolognese 2', 'Dé pastaklassieker bij uitstek 2.')`;
 
 describe('CRUD Meals /api/meal', () => {
 	describe('UC-301 Register Meal', () => {
@@ -156,56 +156,4 @@ describe('CRUD Meals /api/meal', () => {
 		});
 	});
 
-	// describe('UC-302 Update Meal', () => {
-	// 	beforeEach((done) => {
-	// 		logger.debug('beforeEach called');
-	// 		dbconnection.getConnection(function (err, connection) {
-	// 			if (err) throw err;
-	// 			connection.query(
-	// 				'ALTER TABLE meal AUTO_INCREMENT = 1;',
-	// 				(error, result, field) => {
-	// 					connection.query(
-	// 						'ALTER TABLE user AUTO_INCREMENT = 1;',
-	// 						function (error, result, fields) {
-	// 							connection.query(
-	// 								CLEAR_DB + INSERT_USER + INSERT_MEAL,
-	// 								function (error, results, fields) {
-	// 									connection.release();
-	// 									if (error) throw error;
-	// 									logger.debug('beforeEach done');
-	// 									done();
-	// 								}
-	// 							);
-	// 						}
-	// 					);
-	// 				}
-	// 			);
-	// 		});
-	// 	});
-
-    //     it('TC-302-1 Required field missing', (done) => {
-	// 		chai.request(server)
-	// 			.post('/api/meal')
-	// 			.set(
-	// 				'authorization',
-	// 				'Bearer ' + jwt.sign({ id: 1 }, jwtSecretKey)
-	// 			)
-	// 			.send({
-	// 				maxAmountOfParticipants: 4,
-	// 				price: 12.75,
-	// 				imageUrl:
-	// 					'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
-	// 				name: 'Je Dikke Moeder',
-	// 			})
-	// 			.end((err, res) => {
-	// 				res.should.be.an('object');
-	// 				let { status, message } = res.body;
-	// 				status.should.equals(400);
-	// 				message.should.be
-	// 					.a('string')
-	// 					.that.equals('Description should be a string!');
-	// 				done();
-	// 			});
-	// 	});
-	// });
 });
