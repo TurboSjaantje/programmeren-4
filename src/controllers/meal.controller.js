@@ -179,7 +179,7 @@ let controller = {
 					if (error) {
 						connection.release();
 						const newError = {
-							status: 401,
+							status: 404,
 							message: `Meal with ID ${mealId} not found`,
 						};
 						next(newError);
@@ -192,15 +192,15 @@ let controller = {
 								function (error, results, fields) {
 									connection.release();
 									if (error) throw error;
-									res.status(201).json({
-										status: 201,
+									res.status(200).json({
+										status: 200,
 										result: results[0],
 									});
 								}
 							);
 						} else {
 							const error = {
-								status: 401,
+								status: 404,
 								message: `Meal with ID ${mealId} not found`,
 							};
 							next(error);
@@ -222,8 +222,8 @@ let controller = {
 				function (error, meal, fields) {
 					if (error) throw error;
 					if (meal.length < 1) {
-						res.status(401).json({
-							status: 401,
+						res.status(404).json({
+							status: 404,
 							message: 'Meal not found!',
 						});
 						logger.debug('Deleting meal was not found!');
@@ -236,8 +236,8 @@ let controller = {
 						function (error, result, fields) {
 							logger.debug('Meal deleted succesfully!');
 							connection.release;
-							res.status(201).json({
-								status: 201,
+							res.status(200).json({
+								status: 200,
 								result: meal[0],
 							});
 						}

@@ -452,7 +452,7 @@ describe('CRUD Users /api/user', () => {
 			});
 		});
 
-		it('TC-204-1 User not logged in /api/user', (done) => {
+		it('TC-204-1 Invalid token /api/user', (done) => {
 			chai.request(server)
 				.get('/api/user/1')
 				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))

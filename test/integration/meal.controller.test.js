@@ -269,7 +269,7 @@ describe('CRUD Meals /api/meal', () => {
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
-					status.should.equals(401);
+					status.should.equals(404);
 					message.should.be
 						.a('string')
 						.that.equals('Meal with ID 999 not found');
@@ -300,7 +300,7 @@ describe('CRUD Meals /api/meal', () => {
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
-					status.should.equals(201);
+					status.should.equals(200);
 					assert.deepEqual(result, {
 						allergenes: 'noten',
 						cookId: 1,
@@ -505,7 +505,7 @@ describe('CRUD Meals /api/meal', () => {
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
-					status.should.equals(401);
+					status.should.equals(404);
 					message.should.be
 						.a('string')
 						.that.equals('Meal not found!');
@@ -523,7 +523,7 @@ describe('CRUD Meals /api/meal', () => {
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
-					status.should.equals(201);
+					status.should.equals(200);
 					assert.deepEqual(result, {
 						allergenes: '',
 						cookId: 1,

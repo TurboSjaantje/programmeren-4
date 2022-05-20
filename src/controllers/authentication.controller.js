@@ -70,8 +70,8 @@ module.exports = {
 								logger.info(
 									'User not found or password invalid'
 								);
-								res.status(401).json({
-									status: 401,
+								res.status(404).json({
+									status: 404,
 									message:
 										'User not found or password invalid',
 								});
