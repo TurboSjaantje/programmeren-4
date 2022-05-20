@@ -357,7 +357,78 @@ describe('CRUD Meals /api/meal', () => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
 					status.should.equals(200);
-					result.should.be.an('array').that.lengthOf(1)
+					result.should.be.an('array').that.lengthOf(1);
+					done();
+				});
+		});
+	});
+
+	describe('UC-304 Request Mela Details', () => {
+		beforeEach((done) => {
+			logger.debug('beforeEach called');
+			dbconnection.getConnection(function (err, connection) {
+				if (err) throw err;
+				connection.query(
+					'ALTER TABLE meal AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							'ALTER TABLE user AUTO_INCREMENT = 1;',
+							function (error, result, fields) {
+								connection.query(
+									CLEAR_DB + INSERT_USER + INSERT_MEAL,
+									function (error, results, fields) {
+										connection.release();
+										if (error) throw error;
+										logger.debug('beforeEach done');
+										done();
+									}
+								);
+							}
+						);
+					}
+				);
+			});
+		});
+
+		it('TC-304-1 Meal does not exist', (done) => {
+			chai.request(server)
+				.get('/api/meal/2')
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(404);
+					message.should.be
+						.a('string')
+						.that.equals('Meal with id: 2 not found!');
+					done();
+				});
+		});
+
+		it('TC-304-2 Successfull meal detail', (done) => {
+			chai.request(server)
+				.get('/api/meal/1')
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(200);
+					assert.deepEqual(result, {
+						allergenes: '',
+						cookId: 1,
+						createDate: result.createDate,
+						dateTime: result.dateTime,
+						description: 'Dé pastaklassieker bij uitstek.',
+						id: 1,
+						imageUrl:
+							'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
+						isActive: 1,
+						isToTakeHome: 1,
+						isVega: 1,
+						isVegan: 1,
+						maxAmountOfParticipants: 6,
+						name: 'Spaghetti Bolognese',
+						price: '6.75',
+						updateDate: result.updateDate,
+					});
 					done();
 				});
 		});
