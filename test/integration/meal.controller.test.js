@@ -156,7 +156,7 @@ describe('CRUD Meals /api/meal', () => {
 		});
 	});
 
-	describe('UC-301 Register Meal', () => {
+	describe('UC-301 Update Meal', () => {
 		beforeEach((done) => {
 			logger.debug('beforeEach called');
 			dbconnection.getConnection(function (err, connection) {
@@ -411,6 +411,119 @@ describe('CRUD Meals /api/meal', () => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
 					status.should.equals(200);
+					assert.deepEqual(result, {
+						allergenes: '',
+						cookId: 1,
+						createDate: result.createDate,
+						dateTime: result.dateTime,
+						description: 'Dé pastaklassieker bij uitstek.',
+						id: 1,
+						imageUrl:
+							'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
+						isActive: 1,
+						isToTakeHome: 1,
+						isVega: 1,
+						isVegan: 1,
+						maxAmountOfParticipants: 6,
+						name: 'Spaghetti Bolognese',
+						price: '6.75',
+						updateDate: result.updateDate,
+					});
+					done();
+				});
+		});
+	});
+
+	describe('UC-305 Delete meal', () => {
+		beforeEach((done) => {
+			logger.debug('beforeEach called');
+			dbconnection.getConnection(function (err, connection) {
+				if (err) throw err;
+				connection.query(
+					'ALTER TABLE meal AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							'ALTER TABLE user AUTO_INCREMENT = 1;',
+							function (error, result, fields) {
+								connection.query(
+									CLEAR_DB + INSERT_USER + INSERT_MEAL,
+									function (error, results, fields) {
+										connection.release();
+										if (error) throw error;
+										logger.debug('beforeEach done');
+										done();
+									}
+								);
+							}
+						);
+					}
+				);
+			});
+		});
+
+		it('TC-305-2 Not logged in', (done) => {
+			chai.request(server)
+				.delete('/api/meal/1')
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be
+						.a('string')
+						.that.equals('Authorization header missing!');
+					done();
+				});
+		});
+
+		it('TC-305-3 Not the meal owner', (done) => {
+			chai.request(server)
+				.delete('/api/meal/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(403);
+					message.should.be
+						.a('string')
+						.that.equals(
+							'User is not the owner of the meal that is being requested to be deleted or updated'
+						);
+					done();
+				});
+		});
+
+		it('TC-305-4 Meal does not exist', (done) => {
+			chai.request(server)
+				.delete('/api/meal/999')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be
+						.a('string')
+						.that.equals('Meal not found!');
+					done();
+				});
+		});
+
+		it('TC-305-5 Meal updated succesfully', (done) => {
+			chai.request(server)
+				.delete('/api/meal/1')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(201);
 					assert.deepEqual(result, {
 						allergenes: '',
 						cookId: 1,

@@ -158,7 +158,7 @@ let controller = {
 		const newMealInfo = req.body;
 
 		dbconnection.getConnection(function (err, connection) {
-			if (err) throw err; 
+			if (err) throw err;
 			connection.query(
 				'UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, datetime = ?, imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;',
 				[
@@ -229,24 +229,17 @@ let controller = {
 						logger.debug('Deleting meal was not found!');
 						return;
 					}
-					// Get owner of meal before deleting
+
+					// Delete meal
 					connection.query(
-						'SELECT * FROM user WHERE id = ' + userId,
-						function (error, cook, fields) {
-							if (error) throw error;
-							// Delete meal
-							connection.query(
-								'DELETE IGNORE FROM meal WHERE id = ' + mealId,
-								function (error, result, fields) {
-									logger.debug('Meal deleted succesfully!');
-									let response = [...meal, ...cook];
-									connection.release;
-									res.status(201).json({
-										status: 201,
-										result: response,
-									});
-								}
-							);
+						'DELETE IGNORE FROM meal WHERE id = ' + mealId,
+						function (error, result, fields) {
+							logger.debug('Meal deleted succesfully!');
+							connection.release;
+							res.status(201).json({
+								status: 201,
+								result: meal[0],
+							});
 						}
 					);
 				}
