@@ -77,19 +77,13 @@ This keeps the data secure and provides login functionality to the application.
 		<td><b>Response</b></td>
 	</tr>
     <tr>
-        <td>
-            hoi
-        </td>
-        <td>
-            hoi2
-        </td>
+        <td>POST /api/user</td>
+        <td>```json hoi ````</td>
+		<td></td>
     </tr>
     <tr>
-        <td>
-            hoi3
-        </td>
-        <td>
-            hoi4
-        </td>
+        <td></td>
+        <td></td>
+		<td></td>
     </tr>
 </table>
