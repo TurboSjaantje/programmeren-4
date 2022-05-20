@@ -154,54 +154,62 @@ let controller = {
 	},
 	// UC-304
 	updateMealById: (req, res, next) => {
-		const meal = req.body;
 		const mealId = req.params.mealId;
-		const userId = req.userId;
+		const newMealInfo = req.body;
 
-		logger.debug(`meal with ID ${mealId} requested to be updated`);
+		dbconnection.getConnection(function (err, connection) {
+			if (err) throw err; // not connected!
 
-		dbconnection.getConnection(function (error, connection) {
-			if (error) throw error;
+			// updates a meal based on id parameter
 			connection.query(
-				'UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, dateTime = ?, maxAmountOfParticipants = ?, price = ?, imageUrl = ? WHERE id =?;',
+				'UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, datetime = ?, imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;',
 				[
-					meal.name,
-					meal.description,
-					meal.isActive,
-					meal.isVega,
-					meal.isVegan,
-					meal.isToTakeHome,
-					meal.dateTime,
-					meal.maxAmountOfParticipants,
-					meal.price,
-					meal.imageUrl,
+					newMealInfo.name,
+					newMealInfo.description,
+					newMealInfo.isActive,
+					newMealInfo.isVega,
+					newMealInfo.isVegan,
+					newMealInfo.isToTakeHome,
+					newMealInfo.datetime,
+					newMealInfo.imageUrl,
+					newMealInfo.allergenes,
+					newMealInfo.maxAmountOfParticipants,
+					newMealInfo.price,
 					mealId,
 				],
-				function (error, result, fields) {
-					if (result.affectedRows < 1) {
-						res.status(401).json({
+				function (error, results, fields) {
+					if (error) {
+						connection.release();
+						const newError = {
 							status: 401,
 							message: `Meal with ID ${mealId} not found`,
-						});
-						next(error);
-						return;
-					}
-					if (result.affectedRows > 0) {
-						logger.debug(
-							`meal with ID ${mealId} succesfully updated`
-						);
-						// Get updated meal
-						connection.query(
-							'SELECT * FROM meal WHERE id = ' + mealId,
-							function (error, meal, fields) {
-								if (error) throw error;
+						};
+						next(newError);
+					} else {
+						// checks if a row is affected (updated)
+						if (results.affectedRows > 0) {
+							if (err) throw err; // not connected!
 
-								res.status(201).json({
-									status: 201,
-									result: meal[0],
-								});
-							}
-						);
+							// gets meal for the response if a row is changed
+							connection.query(
+								'SELECT * FROM meal WHERE id = ?;',
+								[mealId],
+								function (error, results, fields) {
+									connection.release();
+									if (error) throw error;
+									res.status(201).json({
+										status: 201,
+										result: results[0],
+									});
+								}
+							);
+						} else {
+							const error = {
+								status: 401,
+								message: `Meal with ID ${mealId} not found`,
+							};
+							next(error);
+						}
 					}
 				}
 			);
@@ -253,3 +261,4 @@ let controller = {
 };
 
 module.exports = controller;
+
