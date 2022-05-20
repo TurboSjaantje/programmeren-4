@@ -303,16 +303,41 @@ describe('CRUD Users /api/user', () => {
 		it('TC-203-1 Invalid token /api/user/profile', (done) => {
 			chai.request(server)
 				.get('/api/user/profile')
-				.set(
-					'authorization',
-					'Bearer ' + jwt.sign({ userId: 1 }, 'a')
-				)
+				.set('authorization', 'Bearer ' + jwt.sign({ userId: 1 }, 'a'))
 				.send({})
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, message } = res.body;
 					status.should.equals(401);
 					message.should.be.a('string').that.equals('Not authorized');
+					done();
+				});
+		});
+
+		it('TC-203-2 Valid token and valid profile /api/user/profile', (done) => {
+			chai.request(server)
+				.get('/api/user/profile')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.send({})
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(200);
+					assert.deepEqual(result, {
+						city: 'city',
+						emailAdress: 'name@server.nl',
+						firstName: 'first',
+						id: 1,
+						isActive: 1,
+						lastName: 'last',
+						password: 'Password1!',
+						phoneNumber: '0000000000',
+						roles: 'editor,guest',
+						street: 'street',
+					});
 					done();
 				});
 		});
