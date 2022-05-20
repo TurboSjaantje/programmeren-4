@@ -65,11 +65,22 @@ This keeps the data secure and provides login functionality to the application.
 
 #### Get item
 
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
+<table>
+    <tr>
+        <td>
+            hoi
+        </td>
+        <td>
+            hoi2
+        </td>
+    </tr>
+    <tr>
+        <td>
+            hoi3
+        </td>
+        <td>
+            hoi4
+        </td>
+    </tr>
+</table>
 
