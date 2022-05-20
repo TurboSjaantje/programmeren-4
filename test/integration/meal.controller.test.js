@@ -114,7 +114,7 @@ describe('CRUD Meals /api/meal', () => {
 					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
 				)
 				.send({
-					dateTime: '2022-03-22T16:35:00.000Z',
+					dateTime: '2022-03-22 16:35:00',
 					maxAmountOfParticipants: 4,
 					price: 12.75,
 					imageUrl:
@@ -138,7 +138,7 @@ describe('CRUD Meals /api/meal', () => {
 						isVega: 0,
 						isVegan: 0,
 						isToTakeHome: 1,
-						dateTime: '2022-03-22T15:35:00.000Z',
+						dateTime: '2022-03-22 15:35:00',
 						maxAmountOfParticipants: 4,
 						price: '12.75',
 						imageUrl:
