@@ -132,7 +132,7 @@ describe('Login Functionality /auth/login', () => {
 				});
 		});
 
-		it('TC 101-4 User does not exist', (done) => {
+		it('TC 101-5 User logged in succesfully', (done) => {
 			chai.request(server)
 				.post('/auth/login')
 				.send({
