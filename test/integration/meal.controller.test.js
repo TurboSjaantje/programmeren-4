@@ -285,29 +285,42 @@ describe('CRUD Meals /api/meal', () => {
 					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
 				)
 				.send({
-					maxAmountOfParticipants: 3,
-					price: 69.69,
-					name: 'Een leuke test',
+					dateTime: '2022-03-22 16:35:00',
+					maxAmountOfParticipants: 4,
+					price: 13.75,
+					imageUrl:
+						'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
+					cookId: 3,
+					name: 'Pasta Bolognese met tomaat, spekjes en kaas',
+					description:
+						'Een heerlijke klassieker! Altijd goed voor tevreden gesmikkel!',
+					isActive: 1,
+					isVega: 0,
+					isVegan: 0,
+					isToTakeHome: 1,
+					allergenes: ['noten'],
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
 					let { status, result } = res.body;
 					status.should.equals(201);
 					assert.deepEqual(result, {
-						allergenes: '',
+						allergenes: 'noten',
 						cookId: 1,
 						createDate: result.createDate,
 						dateTime: null,
-						description: '',
+						description:
+							'Een heerlijke klassieker! Altijd goed voor tevreden gesmikkel!',
 						id: 1,
-						imageUrl: '',
-						isActive: 0,
-						isToTakeHome: 0,
+						imageUrl:
+							'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
+						isActive: 1,
+						isToTakeHome: 1,
 						isVega: 0,
 						isVegan: 0,
-						maxAmountOfParticipants: 3,
-						name: 'Een leuke test',
-						price: '69.69',
+						maxAmountOfParticipants: 4,
+						name: 'Pasta Bolognese met tomaat, spekjes en kaas',
+						price: '13.75',
 						updateDate: result.updateDate,
 					});
 					done();
