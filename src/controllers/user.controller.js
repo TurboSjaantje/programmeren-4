@@ -178,6 +178,11 @@ let controller = {
 				connection.release();
 				if (error) throw error;
 				logger.debug('result = ', result.length);
+
+				for (let i = 0; i < result.length; i++) {
+					result[i].isActive = (result[i].isActive) ? true : false;
+				}
+
 				res.status(200).json({
 					status: 200,
 					result: result,
