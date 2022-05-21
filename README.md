@@ -21,9 +21,9 @@ This keeps the data secure and provides login functionality to the application.
 [Share A Meal API](https://test-applicatie.herokuapp.com/)
 
 ### Authentication
-
+------------------------------------------------
 #### Get login token
-
+------------------------------------------------
 ```http
   POST /auth/login
 ```
@@ -36,8 +36,9 @@ This keeps the data secure and provides login functionality to the application.
 ```
 
 ### User
-
+------------------------------------------------
 #### Register
+------------------------------------------------
 ##### Route
 ```http
   POST /api/user
@@ -61,7 +62,7 @@ This keeps the data secure and provides login functionality to the application.
 	...user
 }
 ```
-
+------------------------------------------------
 #### Get all
 ##### Route
 ```http
@@ -75,7 +76,7 @@ This keeps the data secure and provides login functionality to the application.
 ```json
   result:[...users]
 ```
-
+------------------------------------------------
 #### Get user by id
 ##### Route
 ```http
@@ -91,7 +92,7 @@ This keeps the data secure and provides login functionality to the application.
   ...user
   }
 ```
-
+------------------------------------------------
 #### Update user by id
 ##### Route
 ```http
@@ -107,7 +108,7 @@ This keeps the data secure and provides login functionality to the application.
   ...updatedUser
   }
 ```
-
+------------------------------------------------
 #### Delete user by id
 ##### Route
 ```http
@@ -123,7 +124,7 @@ This keeps the data secure and provides login functionality to the application.
   ...deletedUser
   }
 ```
-
+------------------------------------------------
 #### Get personal user profile 
 ##### Route
 ```http
@@ -141,8 +142,9 @@ This keeps the data secure and provides login functionality to the application.
 ```
 
 ### Meal
-
+------------------------------------------------
 #### Register
+------------------------------------------------
 ##### Route
 ```http
   POST /api/meal
@@ -168,6 +170,7 @@ This keeps the data secure and provides login functionality to the application.
 	...meal
 }
 ```
+------------------------------------------------
 #### Get meal
 ##### Route
 ```http
@@ -183,7 +186,7 @@ Authorization header: bearer token
 	...meals
 ]
 ```
-
+------------------------------------------------
 #### Get meal by id
 ##### Route
 ```http
@@ -199,7 +202,7 @@ Authorization header: bearer token
 	...meal
 }
 ```
-
+------------------------------------------------
 #### Update meal by id
 ##### Route
 ```http
