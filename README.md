@@ -31,6 +31,7 @@ This keeps the data secure and provides login functionality to the application.
 1. To download this code, fork the repository or download a .zip file.
 
 ### Run API local
+([Back to top](#share-a-meal-api))
 Hieronder kun je de applicatie lokaal draaien op http://localhost:3000 met deze commands.
 
 ``` 
@@ -38,6 +39,7 @@ npm start
 ```
 
 ## Used libraries
+([Back to top](#share-a-meal-api))
 A list of the libraries used within this project:
 - [chai](https://www.npmjs.com/package/chai)
 - [chai-http](https://www.npmjs.com/package/chai-http)
@@ -50,12 +52,14 @@ A list of the libraries used within this project:
 
 
 ## API Reference
-
+([Back to top](#share-a-meal-api))
 [Share A Meal API](https://test-applicatie.herokuapp.com/)
 
 ### Authentication
+([Back to top](#share-a-meal-api))
 ------------------------------------------------
 #### Get login token
+([Back to top](#share-a-meal-api))
 
 ```http
   POST /auth/login
@@ -69,8 +73,10 @@ A list of the libraries used within this project:
 ```
 
 ### User
+([Back to top](#share-a-meal-api))
 ------------------------------------------------
 #### Register
+([Back to top](#share-a-meal-api))
 
 ##### Route
 ```http
@@ -97,6 +103,7 @@ A list of the libraries used within this project:
 ```
 ------------------------------------------------
 #### Get all
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   GET /api/user
@@ -111,6 +118,7 @@ A list of the libraries used within this project:
 ```
 ------------------------------------------------
 #### Get user by id
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   GET /api/user/:id
@@ -127,6 +135,7 @@ A list of the libraries used within this project:
 ```
 ------------------------------------------------
 #### Update user by id
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   PUT /api/user/:id
@@ -143,6 +152,7 @@ A list of the libraries used within this project:
 ```
 ------------------------------------------------
 #### Delete user by id
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   DELETE /api/user/:id
@@ -159,6 +169,7 @@ A list of the libraries used within this project:
 ```
 ------------------------------------------------
 #### Get personal user profile 
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   GET /api/user/profile
@@ -175,8 +186,10 @@ A list of the libraries used within this project:
 ```
 
 ### Meal
+([Back to top](#share-a-meal-api))
 ------------------------------------------------
 #### Register
+([Back to top](#share-a-meal-api))
 
 ##### Route
 ```http
@@ -205,6 +218,7 @@ A list of the libraries used within this project:
 ```
 ------------------------------------------------
 #### Get meal
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   GET /api/meal
@@ -221,6 +235,7 @@ Authorization header: bearer token
 ```
 ------------------------------------------------
 #### Get meal by id
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   GET /api/meal/:id
@@ -237,6 +252,7 @@ Authorization header: bearer token
 ```
 ------------------------------------------------
 #### Update meal by id
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   PUT /api/meal/:id
@@ -253,6 +269,7 @@ Authorization header: bearer token
 ```
 ------------------------------------------------
 #### Delete meal by id
+([Back to top](#share-a-meal-api))
 ##### Route
 ```http
   DELETE /api/meal/:id
