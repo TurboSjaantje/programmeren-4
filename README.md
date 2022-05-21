@@ -26,6 +26,13 @@ Hieronder kun je de applicatie lokaal draaien op http://localhost:3000 met deze 
 npm start
 ```
 
+## Used libraries
+A list of the libraries used within this project:
+- hoi
+- hoi
+- hoi
+
+
 ## API Reference
 
 [Share A Meal API](https://test-applicatie.herokuapp.com/)
