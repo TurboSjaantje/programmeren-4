@@ -23,7 +23,7 @@ module.exports = {
 			if (connection) {
 				// 1. Kijk of deze useraccount bestaat.
 				connection.query(
-					'SELECT `id`, `emailAdress`, `password`, `firstName`, `lastName`, `isActive`, `street, `city` FROM `user` WHERE `emailAdress` = ?',
+					'SELECT `id`, `emailAdress`, `password`, `firstName`, `lastName`, `isActive`, `street`, `city` FROM `user` WHERE `emailAdress` = ?',
 					[req.body.emailAdress],
 					(err, rows, fields) => {
 						connection.release();

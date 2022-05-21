@@ -150,6 +150,8 @@ describe('Login Functionality /auth/login', () => {
 						firstName: 'first',
 						id: 1,
 						isActive: 1,
+						street: 'street',
+						city: 'city',
 						lastName: 'last',
 						token: result.token,
 					});
