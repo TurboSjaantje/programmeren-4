@@ -18,7 +18,8 @@ This keeps the data secure and provides login functionality to the application.
 
 ## Navigation
 - [Installation](#Installation)
-	- [Run API local](##Run API local)
+- [Used libraries](#Used libraries)
+- [API Reference](#API Reference)
 
 ## Installation
 1. To download this code, fork the repository or download a .zip file.
