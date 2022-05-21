@@ -32,6 +32,9 @@ const INSERT_USER2 =
 const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (1, 1, 1, 1, 1, '2022-05-20 06:36:27', 6, 6.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 1, 'Spaghetti Bolognese', 'Dé pastaklassieker bij uitstek.')`;
 const INSERT_MEAL2 = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (2, 0, 0, 0, 0, '2022-06-20 06:36:27', 7, 7.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 2, 'Spaghetti Bolognese 2', 'Dé pastaklassieker bij uitstek 2.')`;
 
+//INSER PARTICIPATION
+const INSERT_PARTICIPATION = `INSERT INTO meal_participants_user (mealId, userId) VALUES (1,1)`
+
 describe('CRUD Meals /api/meal', () => {
 	describe('UC-301 Register Meal', () => {
 		beforeEach((done) => {
@@ -169,9 +172,9 @@ describe('CRUD Meals /api/meal', () => {
 							function (error, result, fields) {
 								connection.query(
 									CLEAR_DB +
-										INSERT_USER +
-										INSERT_USER2 +
-										INSERT_MEAL,
+									INSERT_USER +
+									INSERT_USER2 +
+									INSERT_MEAL,
 									function (error, results, fields) {
 										connection.release();
 										if (error) throw error;
@@ -545,5 +548,171 @@ describe('CRUD Meals /api/meal', () => {
 					done();
 				});
 		});
+	});
+
+	describe('UC-401 Participate in meal', () => {
+		beforeEach((done) => {
+			logger.debug('beforeEach called');
+			dbconnection.getConnection(function (err, connection) {
+				if (err) throw err;
+				connection.query(
+					'ALTER TABLE meal AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							'ALTER TABLE user AUTO_INCREMENT = 1;',
+							function (error, result, fields) {
+								connection.query(
+									CLEAR_DB + INSERT_USER + INSERT_MEAL,
+									function (error, results, fields) {
+										connection.release();
+										if (error) throw error;
+										logger.debug('beforeEach done');
+										done();
+									}
+								);
+							}
+						);
+					}
+				);
+			});
+		});
+
+		it('TC-401-1 Not logged in', (done) => {
+			chai.request(server)
+				.get('/api/meal/1/participate')
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be
+						.a('string')
+						.that.equals('Authorization header missing!');
+					done();
+				});
+		});
+
+		it('TC-401-2 Meal does not exist', (done) => {
+			chai.request(server)
+				.get('/api/meal/99/participate')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(404);
+					message.should.be
+						.a('string')
+						.that.equals('Meal does not exist!');
+					done();
+				});
+		});
+
+		it('TC-401-2 participation successfull', (done) => {
+			chai.request(server)
+				.get('/api/meal/1/participate')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(200);
+					assert.deepEqual(result, {
+						currentAmountOfParticipants: 1,
+						currentlyParticipating: true
+					})
+					done();
+				});
+		});
+
+	});
+
+	describe('UC-402 Unparticipate in meal', () => {
+		beforeEach((done) => {
+			logger.debug('beforeEach called');
+			dbconnection.getConnection(function (err, connection) {
+				if (err) throw err;
+				connection.query(
+					'ALTER TABLE meal AUTO_INCREMENT = 1;',
+					(error, result, field) => {
+						connection.query(
+							'ALTER TABLE user AUTO_INCREMENT = 1;',
+							function (error, result, fields) {
+								connection.query(
+									CLEAR_DB + INSERT_USER + INSERT_MEAL,
+									function (error, results, fields) {
+										if (error) throw error;
+										connection.query(
+											INSERT_PARTICIPATION,
+											function (error, results, fields) {
+												connection.release();
+												if (error) throw error;
+												logger.debug('beforeEach done');
+												done();
+											}
+										);
+									}
+								);
+							}
+						);
+					}
+				);
+			});
+		});
+
+		it('TC-402-1 Not logged in', (done) => {
+			chai.request(server)
+				.get('/api/meal/1/participate')
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(401);
+					message.should.be
+						.a('string')
+						.that.equals('Authorization header missing!');
+					done();
+				});
+		});
+
+		it('TC-402-2 Meal does not exist', (done) => {
+			chai.request(server)
+				.get('/api/meal/99/participate')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, message } = res.body;
+					status.should.equals(404);
+					message.should.be
+						.a('string')
+						.that.equals('Meal does not exist!');
+					done();
+				});
+		});
+
+		it('TC-402-3 Unparticipation successfull', (done) => {
+			chai.request(server)
+				.get('/api/meal/1/participate')
+				.set(
+					'authorization',
+					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
+				)
+				.end((err, res) => {
+					res.should.be.an('object');
+					let { status, result } = res.body;
+					status.should.equals(200);
+					assert.deepEqual(result, {
+						currentAmountOfParticipants: 1,
+						currentlyParticipating: false
+					})
+					done();
+				});
+		});
+
 	});
 });
