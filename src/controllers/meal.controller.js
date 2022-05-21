@@ -8,29 +8,20 @@ let controller = {
 	// Validate new meal
 	validateMeal: (req, res, next) => {
 		let meal = req.body;
-		let { name, description, imageUrl, maxAmountOfParticipants, price, isToTakeHome, isVega, isVegan, isActive } =
+		let { name, description, isToTakeHome, imageUrl, price, isVega, isVegan, isActive, dateTime } =
 			meal;
 
 		try {
-			assert(typeof name === 'string', 'Name should be a string!');
-			assert(
-				typeof description === 'string',
-				'Description should be a string!'
-			);
-			assert(
-				typeof imageUrl === 'string',
-				'Image URL should be a string!'
-			);
-			assert(
-				typeof maxAmountOfParticipants === 'number',
-				'maxAmountofParticipants should be a number!'
-			);
-			assert(typeof price === 'number', 'Price should be a number!');
-			assert(typeof isToTakeHome != null, 'isToTakeHome cannot be null')
-			assert(typeof isActive != null, 'isActive cannot be null')
-			assert(typeof isVega != null, 'isVega cannot be null')
-			assert(typeof isVegan != null, 'isVegan cannot be null')
-			next();
+			assert(typeof imageUrl === "string", "ImageUrl must be a string");
+            assert(typeof name === "string", "Name must be a string");
+            assert(typeof description === "string", "Description should be a string!");
+            assert(typeof price === "number", "Price must be a number");
+            assert(typeof dateTime === "string", "DateTime must be a string");
+            assert(isToTakeHome != null, "isToTakeHome cannot be null");
+            assert(isVega != null, "isVega cannot be null");
+            assert(isVegan != null, "isVegan cannot be null");
+            assert(isActive != null, "isActive cannot be null");
+            next();
 		} catch (err) {
 			const error = { status: 400, message: err.message };
 			next(error);
