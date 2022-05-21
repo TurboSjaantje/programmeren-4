@@ -135,9 +135,11 @@ let controller = {
 							[user.emailAdress],
 							function (error, results, fields) {
 								connection.release();
+								user = results[0];
+								user.isActive = (user.isActive) ? true : false;
 								res.status(201).json({
 									status: 201,
-									result: results[0],
+									result: user,
 								});
 							}
 						);

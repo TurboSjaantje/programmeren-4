@@ -299,10 +299,10 @@ describe('CRUD Users /api/user', () => {
 								function (error, result, fields) {
 									connection.query(
 										CLEAR_DB +
-											INSERT_USER +
-											INSERT_USER2 +
-											INSERT_USER3 +
-											INSERT_USER4,
+										INSERT_USER +
+										INSERT_USER2 +
+										INSERT_USER3 +
+										INSERT_USER4,
 										function (error, results, fields) {
 											connection.release();
 											if (error) throw error;
@@ -702,9 +702,9 @@ describe('CRUD Users /api/user', () => {
 					function (error, result, fields) {
 						connection.query(
 							CLEAR_DB +
-								INSERT_USER +
-								INSERT_USER2 +
-								INSERT_USER3,
+							INSERT_USER +
+							INSERT_USER2 +
+							INSERT_USER3,
 							function (error, results, fields) {
 								connection.release();
 								if (error) throw error;
