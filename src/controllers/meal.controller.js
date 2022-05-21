@@ -206,42 +206,50 @@ let controller = {
 					mealId,
 				],
 				function (error, results, fields) {
-					if (error) throw error;
-					if (results.affectedRows > 0) {
-						if (err) throw err;
-						connection.query(
-							'SELECT * FROM meal WHERE id = ?;',
-							[mealId],
-							function (error, results, fields) {
-								connection.release();
-								if (error) throw error;
-
-								results[0].price = price;
-
-								results[0].isActive = newMealInfo.isActive
-									? true
-									: false;
-								results[0].isVega = newMealInfo.isVega
-									? true
-									: false;
-								results[0].isVegan = newMealInfo.isVegan
-									? true
-									: false;
-								results[0].isToTakeHome =
-									newMealInfo.isToTakeHome ? true : false;
-
-								res.status(200).json({
-									status: 200,
-									result: results[0],
-								});
-							}
-						);
-					} else {
-						const error = {
+					if (error) {
+						connection.release();
+						const newError = {
 							status: 404,
 							message: `Meal with ID ${mealId} not found`,
 						};
-						next(error);
+						next(newError);
+					} else {
+						if (results.affectedRows > 0) {
+							if (err) throw err;
+							connection.query(
+								'SELECT * FROM meal WHERE id = ?;',
+								[mealId],
+								function (error, results, fields) {
+									connection.release();
+									if (error) throw error;
+
+									results[0].price = price;
+
+									results[0].isActive = (newMealInfo.isActive)
+										? true
+										: false;
+									results[0].isVega = (newMealInfo.isVega)
+										? true
+										: false;
+									results[0].isVegan = (newMealInfo.isVegan)
+										? true
+										: false;
+									results[0].isToTakeHome =
+										(newMealInfo.isToTakeHome) ? true : false;
+
+									res.status(200).json({
+										status: 200,
+										result: results[0],
+									});
+								}
+							);
+						} else {
+							const error = {
+								status: 404,
+								message: `Meal with ID ${mealId} not found`,
+							};
+							next(error);
+						}
 					}
 				}
 			);
