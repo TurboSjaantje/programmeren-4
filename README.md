@@ -29,7 +29,7 @@ This keeps the data secure and provides login functionality to the application.
 	        - [Get user by id](#get-user-by-id)
 	        - [Update user by id](#update-user-by-id)
 	        - [Delete user by id](#delete-user-by-id)
-	        - [Get personal user profile ](#get-personal-user-profile)
+	        - [Get personal user profile](#get-personal-user-profile)
 	- [Meal](#meal)	 
 		- [Register meal](#register-meal)	
 		- [Get meal](#get-meal)
