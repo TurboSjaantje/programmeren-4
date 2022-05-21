@@ -28,9 +28,14 @@ npm start
 
 ## Used libraries
 A list of the libraries used within this project:
-- hoi
-- hoi
-- hoi
+- [chai]([https://www.npm.com/chai](https://www.npmjs.com/package/chai))
+- [chai-http](https://www.npmjs.com/package/chai-http)
+- [mocha](https://www.npmjs.com/package/mocha) 'Simple, flexible, fun JavaScript test framework for Node.js & The Browser'
+- mysql2
+- express
+- dotenv
+- jsonwebtoken
+- tracer
 
 
 ## API Reference
