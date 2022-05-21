@@ -22,10 +22,11 @@ This keeps the data secure and provides login functionality to the application.
 - [Used libraries](#used-libraries)
 - [API Reference](#api-reference)
 	- [Authentication](#authentication)
+		- [Get login token](#get-login-token) 	
 	- [User](#user)
 	- [Meal](#meal)	 	
 
-## Installation
+## Installation ([Back to top](#share-a-meal-api))	
 1. To download this code, fork the repository or download a .zip file.
 
 ### Run API local
