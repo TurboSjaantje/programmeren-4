@@ -152,24 +152,24 @@ let controller = {
 	getAllUsers: (req, res, next) => {
 		// Get params
 		let query = req.query;
-		let { isActive, name } = query;
+		let { isActive, firstName } = query;
 
 		if (isActive == 'false') isActive = 0;
 		else if (isActive == 'true') isActive = 1;
 
 		// Define query
 		let dbQuery = 'SELECT * FROM user';
-		if (isActive != undefined && name != undefined)
-			dbQuery = `SELECT * FROM user WHERE isActive = ${isActive} AND firstname LIKE '%${name}%'`;
+		if (isActive != undefined && firstName != undefined)
+			dbQuery = `SELECT * FROM user WHERE isActive = ${isActive} AND firstname LIKE '%${firstName}%'`;
 		else if (isActive != undefined && isActive != 0 && isActive != 1)
 			res.status(401).json({
 				status: 401,
 				message: 'Invalid search term!',
 			});
-		else if (isActive != undefined && name == undefined)
+		else if (isActive != undefined && firstName == undefined)
 			dbQuery = `SELECT * FROM user WHERE isActive = ${active}`;
-		else if (isActive == undefined && name != undefined)
-			dbQuery = `SELECT * FROM user WHERE firstname LIKE '%${name}%'`;
+		else if (isActive == undefined && firstName != undefined)
+			dbQuery = `SELECT * FROM user WHERE firstname LIKE '%${firstName}%'`;
 
 		// Retrieve users
 		dbconnection.getConnection(function (err, connection) {
