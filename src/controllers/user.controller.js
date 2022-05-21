@@ -265,7 +265,7 @@ let controller = {
 					if (error) {
 						res.status(401).json({
 							status: 401,
-							result: `Email ${user.emailAdress} has already been taken!`,
+							message: `Email ${user.emailAdress} has already been taken!`,
 						});
 						return;
 					}
@@ -283,7 +283,7 @@ let controller = {
 					} else {
 						res.status(400).json({
 							status: 400,
-							result: `Update failed, user with ID ${userId} does not exist`,
+							message: `Update failed, user with ID ${userId} does not exist`,
 						});
 					}
 				}
