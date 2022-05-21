@@ -2,6 +2,7 @@
 
 [![Deploy to Heroku](https://github.com/TurboSjaantje/programmeren-4/actions/workflows/main.yml/badge.svg)](https://github.com/TurboSjaantje/programmeren-4/actions/workflows/main.yml)
 ![GitHub repo size](https://img.shields.io/github/repo-size/TurboSjaantje/programmeren-4?label=Total%20Size)
+![Code Language](https://img.shields.io/github/languages/top/TurboSjaantje/programmeren-4?color=red)
 
 ## Description
 
