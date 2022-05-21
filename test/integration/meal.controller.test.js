@@ -294,7 +294,7 @@ describe('CRUD Meals /api/meal', () => {
 					isVega: 0,
 					isVegan: 0,
 					isToTakeHome: 1,
-					datetime: '2022-03-20T12:01:05.000Z',
+					dateTime: '2022-03-20T12:01:05.000Z',
 					imageUrl: 'https://google.com/meal1',
 					allergenes: ['noten'],
 					maxAmountOfParticipants: 1,
