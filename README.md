@@ -24,7 +24,7 @@ This keeps the data secure and provides login functionality to the application.
 	- [Authentication](#authentication)
 		- [Get login token](#get-login-token) 	
 	- [User](#user)
-	        - [Register](#register)
+		- [Register](#register)
 	        - [Get all](#get-all)
 	        - [Get user by id](#get-user-by-id)
 	        - [Update user by id](#update-user-by-id)
