@@ -68,7 +68,7 @@ describe('CRUD Users /api/user', () => {
 					lastName: 'Henk',
 					street: 'Meulenbroek 21',
 					city: 'Bleskensgraaf',
-					password: 'JeMoeder4!',
+					password: 'Secrets0',
 					emailAdress: 'daanvdm@hotmail.com',
 				})
 				.end((err, res) => {
@@ -90,7 +90,7 @@ describe('CRUD Users /api/user', () => {
 					lastName: 'Henk',
 					street: 'Meulenbroek 21',
 					city: 'Bleskensgraaf',
-					password: 'JeMoeder4!',
+					password: 'Secrets0',
 					emailAdress: 'daanvdmhotmail.com',
 				})
 				.end((err, res) => {
@@ -122,7 +122,7 @@ describe('CRUD Users /api/user', () => {
 					status.should.equals(400);
 					message.should.be
 						.a('string')
-						.that.equals('Password cannot be null!');
+						.that.equals('Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit');
 					done();
 				});
 		});
@@ -135,7 +135,7 @@ describe('CRUD Users /api/user', () => {
 					lastName: 'last',
 					isActive: 1,
 					emailAdress: 'name@server.nl',
-					password: 'Password1!',
+					password: 'Secrets0',
 					phoneNumber: '0631490687',
 					roles: 'editor,guest',
 					street: 'street',
@@ -162,7 +162,7 @@ describe('CRUD Users /api/user', () => {
 					lastName: 'van der Meulen',
 					isActive: 1,
 					emailAdress: 'daanvdm@hotmail.com',
-					password: 'JeMoeder4!',
+					password: 'Secrets0',
 					phoneNumber: '0631490687',
 					roles: 'editor,guest',
 					street: 'Meulenbroek',
@@ -178,7 +178,7 @@ describe('CRUD Users /api/user', () => {
 						lastName: 'van der Meulen',
 						isActive: 1,
 						emailAdress: 'daanvdm@hotmail.com',
-						password: 'JeMoeder4!',
+						password: 'Secrets0',
 						phoneNumber: '0631490687',
 						roles: 'editor,guest',
 						street: 'Meulenbroek',

@@ -20,16 +20,10 @@ This keeps the data secure and provides login functionality to the application.
 1. To download this code, fork the repository or download a .zip file.
 
 ### Run API local
-Hieronder kun je de applicatie lokaal draaien op http://localhost:3030 met deze commands.
+Hieronder kun je de applicatie lokaal draaien op http://localhost:3000 met deze commands.
 
 ``` 
 npm start
-```
-
-//Of
-
-```
-nodemon index.js
 ```
 
 ## API Reference

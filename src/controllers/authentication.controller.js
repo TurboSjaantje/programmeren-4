@@ -171,8 +171,6 @@ module.exports = {
 	validateToken(req, res, next) {
 		logger.info('validateToken called');
 
-		// logger.trace(req.headers)
-		// The headers should contain the authorization-field with value 'Bearer [token]'
 		const authHeader = req.headers.authorization;
 
 		if (!authHeader) {
@@ -182,7 +180,6 @@ module.exports = {
 				message: 'Authorization header missing!',
 			});
 		} else {
-			// Strip the word 'Bearer ' from the headervalue
 			const token = authHeader.substring(7, authHeader.length);
 
 			jwt.verify(token, jwtSecretKey, (err, payload) => {
@@ -195,8 +192,6 @@ module.exports = {
 				}
 				if (payload) {
 					logger.debug('token is valid', payload);
-					// User heeft toegang. Voeg UserId uit payload toe aan
-					// request, voor ieder volgend endpoint.
 					req.userId = payload.userId;
 					next();
 				}
