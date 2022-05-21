@@ -56,7 +56,6 @@ This keeps the data secure and provides login functionality to the application.
 }
 ```
 ##### Response
-
 ```json
 {
 	...user
@@ -123,4 +122,48 @@ This keeps the data secure and provides login functionality to the application.
   {
   ...deletedUser
   }
+```
+
+#### Get personal user profile 
+##### Route
+```http
+  GET /api/user/profile
+```
+##### Request
+```json
+  Authorization header: bearer token
+```
+##### Response
+```json
+  {
+  ...user
+  }
+
+### Meal
+
+#### Register
+##### Route
+```http
+  POST /api/meal
+```
+##### Request
+```json
+{
+	"dateTime" : "yyy-MM-dd hh:mm:ss",
+	"maxAmountOfParticipants" : Number,
+	"price" : Number,
+	"imageUrl" : "String",
+	"name": "String",
+	"description" : "String",
+	"isActive" : Bit,
+	"isVega" : Bit,
+	"isVegan" : Bit,
+	"isToTakeHome" : Bit,
+}
+```
+##### Response
+```json
+{
+	...meal
+}
 ```
