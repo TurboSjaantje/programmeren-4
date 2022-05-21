@@ -186,7 +186,7 @@ let controller = {
 		const mealId = req.params.mealId;
 		const newMealInfo = req.body;
 		let price = parseFloat(newMealInfo.price);
-		let updateAllergenes = req.body.allergenes.join()
+		let updateAllergenes = req.body.allergenes.join();
 
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err;
@@ -226,17 +226,17 @@ let controller = {
 
 									results[0].price = price;
 
-									results[0].isActive = (newMealInfo.isActive)
+									results[0].isActive = newMealInfo.isActive
 										? true
 										: false;
-									results[0].isVega = (newMealInfo.isVega)
+									results[0].isVega = newMealInfo.isVega
 										? true
 										: false;
-									results[0].isVegan = (newMealInfo.isVegan)
+									results[0].isVegan = newMealInfo.isVegan
 										? true
 										: false;
 									results[0].isToTakeHome =
-										(newMealInfo.isToTakeHome) ? true : false;
+										newMealInfo.isToTakeHome ? true : false;
 
 									res.status(200).json({
 										status: 200,

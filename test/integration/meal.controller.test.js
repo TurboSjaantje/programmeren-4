@@ -33,7 +33,7 @@ const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHo
 const INSERT_MEAL2 = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (2, 0, 0, 0, 0, '2022-06-20 06:36:27', 7, 7.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 2, 'Spaghetti Bolognese 2', 'Dé pastaklassieker bij uitstek 2.')`;
 
 //INSER PARTICIPATION
-const INSERT_PARTICIPATION = `INSERT INTO meal_participants_user (mealId, userId) VALUES (1,1)`
+const INSERT_PARTICIPATION = `INSERT INTO meal_participants_user (mealId, userId) VALUES (1,1)`;
 
 describe('CRUD Meals /api/meal', () => {
 	describe('UC-301 Register Meal', () => {
@@ -172,9 +172,9 @@ describe('CRUD Meals /api/meal', () => {
 							function (error, result, fields) {
 								connection.query(
 									CLEAR_DB +
-									INSERT_USER +
-									INSERT_USER2 +
-									INSERT_MEAL,
+										INSERT_USER +
+										INSERT_USER2 +
+										INSERT_MEAL,
 									function (error, results, fields) {
 										connection.release();
 										if (error) throw error;
@@ -265,9 +265,17 @@ describe('CRUD Meals /api/meal', () => {
 					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
 				)
 				.send({
-					maxAmountOfParticipants: 3,
-					price: 69.69,
-					name: 'Een leuke test',
+					name: 'Maaltijd',
+					description: 'Henk zn meal',
+					isActive: 1,
+					isVega: 0,
+					isVegan: 0,
+					isToTakeHome: 1,
+					dateTime: '2022-03-20T12:01:05.000Z',
+					imageUrl: 'https://google.com/meal1',
+					allergenes: ['noten'],
+					maxAmountOfParticipants: 1,
+					price: 10.0,
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -318,7 +326,7 @@ describe('CRUD Meals /api/meal', () => {
 						isVegan: false,
 						maxAmountOfParticipants: 1,
 						name: 'Maaltijd',
-						price: 10.00,
+						price: 10.0,
 						updateDate: result.updateDate,
 					});
 					done();
@@ -607,12 +615,11 @@ describe('CRUD Meals /api/meal', () => {
 					status.should.equals(200);
 					assert.deepEqual(result, {
 						currentAmountOfParticipants: 1,
-						currentlyParticipating: true
-					})
+						currentlyParticipating: true,
+					});
 					done();
 				});
 		});
-
 	});
 
 	describe('UC-402 Unparticipate in meal', () => {
@@ -693,11 +700,10 @@ describe('CRUD Meals /api/meal', () => {
 					status.should.equals(200);
 					assert.deepEqual(result, {
 						currentAmountOfParticipants: 1,
-						currentlyParticipating: false
-					})
+						currentlyParticipating: false,
+					});
 					done();
 				});
 		});
-
 	});
 });
