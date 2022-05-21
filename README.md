@@ -87,3 +87,26 @@ This keeps the data secure and provides login functionality to the application.
 ```json
   result:[...users]
 ```
+
+#### Get user by id
+
+##### Route
+
+```http
+  GET /api/user/:id
+```
+
+##### Request
+
+```json
+  Authorization header: bearer token
+  {key : userId, value : "Number"}
+```
+
+##### Response
+
+```json
+  {
+  ...user
+  }
+```
