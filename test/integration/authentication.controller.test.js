@@ -23,10 +23,10 @@ const CLEAR_DB =
 //INSERT USER
 const INSERT_USER =
 	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city` ) VALUES' +
-	'(1, "first", "last", "name@server.nl", "Password1!", "0000000000", "street", "city");';
+	'(1, "first", "last", "name@server.nl", "Secrets0", "0000000000", "street", "city");';
 const INSERT_USER2 =
 	'INSERT INTO `user` (`id`, `firstName`, `lastName`, `emailAdress`, `password`, `phoneNumber`, `street`, `city` ) VALUES' +
-	'(2, "second", "secondlast", "secondname@server.nl", "Password1!", "0000000000", "secondstreet", "secondcity");';
+	'(2, "second", "secondlast", "secondname@server.nl", "Secrets0", "0000000000", "secondstreet", "secondcity");';
 
 //INSERT MEAL
 const INSERT_MEAL = `INSERT INTO meal (id, isActive, isVega, isVegan, isToTakeHome, dateTime, maxAmountOfParticipants, price, imageUrl, cookId, name, description) VALUES (1, 1, 1, 1, 1, '2022-05-20 06:36:27', 6, 6.75, 'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg', 1, 'Spaghetti Bolognese', 'Dé pastaklassieker bij uitstek.')`;
@@ -65,7 +65,7 @@ describe('Login Functionality /auth/login', () => {
 				.post('/api/auth/login')
 				.send({
 					//emailAdress: 'name@server.nl',
-					password: 'Password1!',
+					password: 'Secrets0',
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -83,7 +83,7 @@ describe('Login Functionality /auth/login', () => {
 				.post('/api/auth/login')
 				.send({
 					emailAdress: 1,
-					password: 'Password1!',
+					password: 'Secrets0',
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -109,7 +109,7 @@ describe('Login Functionality /auth/login', () => {
 					status.should.equals(400);
 					message.should.be
 						.a('string')
-						.that.equals('password must be a string.');
+						.that.equals('Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit');
 					done();
 				});
 		});
@@ -119,7 +119,7 @@ describe('Login Functionality /auth/login', () => {
 				.post('/api/auth/login')
 				.send({
 					emailAdress: 'fakeuser@server.nl',
-					password: 'Password1!',
+					password: 'Secrets0',
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -137,7 +137,7 @@ describe('Login Functionality /auth/login', () => {
 				.post('/api/auth/login')
 				.send({
 					emailAdress: 'name@server.nl',
-					password: 'Password1!',
+					password: 'Secrets0',
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
