@@ -59,17 +59,18 @@ let controller = {
 	registerMeal: (req, res, next) => {
 		let meal = req.body;
 		let cookId = req.userId;
+		let price = parseFloat(meal.price);
 		logger.debug(meal);
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err; // not connected!
 
 			// adds new meal
 			connection.query(
-				'INSERT INTO meal (datetime, maxAmountOfParticipants, price, imageUrl, cookId, name, description, isActive, isVega, isVegan, isToTakeHome) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
+				`INSERT INTO meal (datetime, maxAmountOfParticipants, price, imageUrl, cookId, name, description, isActive, isVega, isVegan, isToTakeHome) VALUES(STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s.%fZ'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
 				[
 					meal.dateTime,
 					meal.maxAmountOfParticipants,
-					meal.price,
+					price,
 					meal.imageUrl,
 					cookId,
 					meal.name,
@@ -92,6 +93,14 @@ let controller = {
 						connection.query(
 							'SELECT * FROM meal ORDER BY id DESC LIMIT 1;',
 							function (error, results, fields) {
+								connection.release();
+								results[0].price = price;
+
+								results[0].isActive = (meal.isActive) ? true : false;
+								results[0].isVega = (meal.isVega) ? true : false;
+								results[0].isVegan = (meal.isVegan) ? true : false;
+								results[0].isToTakeHome = (meal.isToTakeHome) ? true : false;
+
 								if (error) throw error;
 
 								res.status(201).json({

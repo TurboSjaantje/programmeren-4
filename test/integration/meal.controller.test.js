@@ -117,7 +117,7 @@ describe('CRUD Meals /api/meal', () => {
 					'Bearer ' + jwt.sign({ userId: 1 }, jwtSecretKey)
 				)
 				.send({
-					dateTime: '2022-03-22 16:35:00',
+					dateTime: '2022-03-22T16:35:00.000Z',
 					maxAmountOfParticipants: 4,
 					price: 12.75,
 					imageUrl:
@@ -137,13 +137,13 @@ describe('CRUD Meals /api/meal', () => {
 					console.log(result.cookId);
 					assert.deepEqual(result, {
 						id: 2,
-						isActive: 1,
-						isVega: 0,
-						isVegan: 0,
-						isToTakeHome: 1,
+						isActive: true,
+						isVega: false,
+						isVegan: false,
+						isToTakeHome: true,
 						dateTime: result.dateTime,
 						maxAmountOfParticipants: 4,
-						price: '12.75',
+						price: 12.75,
 						imageUrl:
 							'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
 						cookId: 1,
