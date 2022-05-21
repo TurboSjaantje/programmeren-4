@@ -183,3 +183,52 @@ Authorization header: bearer token
 	...meals
 ]
 ```
+
+#### Get meal by id
+##### Route
+```http
+  GET /api/meal/:id
+```
+##### Request
+```json
+Authorization header: bearer token
+```
+##### Response
+```json
+{
+	...meal
+}
+```
+
+#### Update meal by id
+##### Route
+```http
+  PUT /api/meal/:id
+```
+##### Request
+```json
+Authorization header: bearer token
+```
+##### Response
+```json
+{
+	...updatedMeal
+}
+```
+
+#### Delete meal by id
+##### Route
+```http
+  DELETE /api/meal/:id
+```
+##### Request
+```json
+Authorization header: bearer token
+```
+##### Response
+```json
+{
+	...deletedMeal
+}
+```
+
