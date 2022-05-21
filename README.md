@@ -15,9 +15,9 @@ This keeps the data secure and provides login functionality to the application.
 ## About me
 
 Creator: [@TurboSjaantje](https://www.github.com/TurboSjaantje)
-
-:fire: Stats: 
-
+	- 💻 Informatice Student Avans Breda
+	- ☕ Love coffee
+	
 [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=TurboSjaantje&theme=dark&hide_border=true&date_format=j%20M%5B%20Y%5D)](https://git.io/streak-stats)
 
 ## Navigation
