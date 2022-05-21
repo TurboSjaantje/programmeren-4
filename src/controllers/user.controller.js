@@ -169,7 +169,7 @@ let controller = {
 		else if (active != undefined && name == undefined)
 			dbQuery = `SELECT * FROM user WHERE isActive = ${active}`;
 		else if (active == undefined && name != undefined)
-			dbQuery = `SELECT * FROM user WHERE firstname LIKE '%${name}%'`;
+			dbQuery = `SELECT * FROM user WHERE firstname = '${name}'`;
 
 		// Retrieve users
 		dbconnection.getConnection(function (err, connection) {
