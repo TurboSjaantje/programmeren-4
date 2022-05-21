@@ -516,7 +516,7 @@ describe('CRUD Meals /api/meal', () => {
 				});
 		});
 
-		it('TC-305-5 Meal updated succesfully', (done) => {
+		it('TC-305-5 Meal deleted succesfully', (done) => {
 			chai.request(server)
 				.delete('/api/meal/1')
 				.set(
@@ -525,26 +525,11 @@ describe('CRUD Meals /api/meal', () => {
 				)
 				.end((err, res) => {
 					res.should.be.an('object');
-					let { status, result } = res.body;
+					let { status, message } = res.body;
 					status.should.equals(200);
-					assert.deepEqual(result, {
-						allergenes: '',
-						cookId: 1,
-						createDate: result.createDate,
-						dateTime: result.dateTime,
-						description: 'Dé pastaklassieker bij uitstek.',
-						id: 1,
-						imageUrl:
-							'https://miljuschka.nl/wp-content/uploads/2021/02/Pasta-bolognese-3-2.jpg',
-						isActive: 1,
-						isToTakeHome: 1,
-						isVega: 1,
-						isVegan: 1,
-						maxAmountOfParticipants: 6,
-						name: 'Spaghetti Bolognese',
-						price: '6.75',
-						updateDate: result.updateDate,
-					});
+					message.should.be
+						.a('string')
+						.that.equals('Meal deleted successfully');
 					done();
 				});
 		});
