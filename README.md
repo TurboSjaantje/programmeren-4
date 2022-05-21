@@ -14,7 +14,7 @@ This keeps the data secure and provides login functionality to the application.
 
 ## Authors
 
--   [@TurboSjaantje](https://www.github.com/TurboSjaantje)
+-   [][@TurboSjaantje](https://www.github.com/TurboSjaantje)
 
 ## Navigation
 - [Installation](#installation)
