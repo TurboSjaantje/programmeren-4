@@ -56,7 +56,6 @@ A list of the libraries used within this project:
 [Share A Meal API](https://test-applicatie.herokuapp.com/)
 
 ### Authentication
-([Back to top](#share-a-meal-api))
 ------------------------------------------------
 #### Get login token
 ([Back to top](#share-a-meal-api))
@@ -73,7 +72,6 @@ A list of the libraries used within this project:
 ```
 
 ### User
-([Back to top](#share-a-meal-api))
 ------------------------------------------------
 #### Register
 ([Back to top](#share-a-meal-api))
@@ -186,7 +184,6 @@ A list of the libraries used within this project:
 ```
 
 ### Meal
-([Back to top](#share-a-meal-api))
 ------------------------------------------------
 #### Register
 ([Back to top](#share-a-meal-api))
