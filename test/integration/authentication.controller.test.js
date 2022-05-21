@@ -82,7 +82,7 @@ describe('Login Functionality /auth/login', () => {
 			chai.request(server)
 				.post('/api/auth/login')
 				.send({
-					emailAdress: 1,
+					emailAdress: "aa",
 					password: 'Secrets0',
 				})
 				.end((err, res) => {
@@ -91,7 +91,7 @@ describe('Login Functionality /auth/login', () => {
 					status.should.equals(400);
 					message.should.be
 						.a('string')
-						.that.equals('email must be a string.');
+						.that.equals('Non valid email-address');
 					done();
 				});
 		});
@@ -101,7 +101,7 @@ describe('Login Functionality /auth/login', () => {
 				.post('/api/auth/login')
 				.send({
 					emailAdress: 'name@server.nl',
-					password: 1,
+					password: "a",
 				})
 				.end((err, res) => {
 					res.should.be.an('object');
@@ -120,7 +120,7 @@ describe('Login Functionality /auth/login', () => {
 			chai.request(server)
 				.post('/api/auth/login')
 				.send({
-					emailAdress: 'fakeuser@server.nl',
+					emailAdress: 'fakeuser@hotmail.com',
 					password: 'Secrets0',
 				})
 				.end((err, res) => {

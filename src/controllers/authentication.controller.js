@@ -86,21 +86,27 @@ module.exports = {
 	validateLogin(req, res, next) {
 		// Verify that we receive the expected input
 		try {
-			assert.match(
-				req.body.password,
-				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
-				'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
+			assert(
+				typeof req.body.password === 'string',
+				'password must be a string.'
 			);
 			assert(
 				typeof req.body.emailAdress === 'string',
 				'email must be a string.'
 			);
-			assert(
-				typeof req.body.password === 'string',
-				'password must be a string.'
-			);
 			assert(req.body.emailAdress != null, 'email cannot be null');
 			assert(req.body.password != null, 'password cannot be null');
+			assert.match(
+				req.body.password,
+				/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+				'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
+			);
+
+			assert.match(
+				req.body.emailAdress, 
+				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+				'Non valid email-address')
+
 			next();
 		} catch (error) {
 			const err = {
