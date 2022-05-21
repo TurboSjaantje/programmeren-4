@@ -60,6 +60,7 @@ module.exports = {
 											'User logged in, sending: ',
 											userinfo
 										);
+										userinfo.isActive = (userinfo.isActive) ? true : false;
 										res.status(200).json({
 											status: 200,
 											result: { ...userinfo, token },
