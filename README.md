@@ -43,7 +43,7 @@ Creator: [@TurboSjaantje](https://www.github.com/TurboSjaantje)
 1. To download this code, fork the repository or download a .zip file.
 
 ### Run API local
-Hieronder kun je de applicatie lokaal draaien op http://localhost:3000 met deze commands.
+To run the API local, use the below command:
 
 ``` 
 npm start
