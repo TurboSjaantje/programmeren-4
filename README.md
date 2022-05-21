@@ -215,7 +215,7 @@ Authorization header: bearer token
 	...updatedMeal
 }
 ```
-
+------------------------------------------------
 #### Delete meal by id
 ##### Route
 ```http
