@@ -156,6 +156,7 @@ let controller = {
 						next(error);
 						return;
 					}
+					result[0].isActive = (result[0].isActive) ? true : false;
 					res.status(200).json({
 						status: 200,
 						result: result[0],

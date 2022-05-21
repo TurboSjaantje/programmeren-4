@@ -366,7 +366,7 @@ describe('CRUD Meals /api/meal', () => {
 		});
 	});
 
-	describe('UC-304 Request Mela Details', () => {
+	describe('UC-304 Request Meal Details', () => {
 		beforeEach((done) => {
 			logger.debug('beforeEach called');
 			dbconnection.getConnection(function (err, connection) {
