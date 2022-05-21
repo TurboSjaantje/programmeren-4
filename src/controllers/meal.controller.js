@@ -170,7 +170,7 @@ let controller = {
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err;
 			connection.query(
-				`UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, datetime = STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s.%fZ'), imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;`,
+				`UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, dateTime = STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s.%fZ'), imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;`,
 				[
 					newMealInfo.name,
 					newMealInfo.description,
@@ -178,7 +178,7 @@ let controller = {
 					newMealInfo.isVega,
 					newMealInfo.isVegan,
 					newMealInfo.isToTakeHome,
-					newMealInfo.datetime,
+					newMealInfo.dateTime,
 					newMealInfo.imageUrl,
 					newMealInfo.allergenes,
 					newMealInfo.maxAmountOfParticipants,
@@ -341,5 +341,3 @@ let controller = {
 };
 
 module.exports = controller;
-
-//help

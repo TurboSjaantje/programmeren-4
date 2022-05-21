@@ -325,5 +325,3 @@ let controller = {
 };
 
 module.exports = controller;
-
-//test
