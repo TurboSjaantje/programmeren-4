@@ -63,11 +63,16 @@ let controller = {
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err; // not connected!
 
+			let date = new Date().toLocaleString().replace(", ", "");
+			date = date.substring(0, date.length - 3)
+			logger.debug(date)
+
 			// adds new meal
 			connection.query(
 				'INSERT INTO meal (datetime, maxAmountOfParticipants, price, imageUrl, cookId, name, description, isActive, isVega, isVegan, isToTakeHome) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
 				[
-					meal.dateTime,
+					date,
+					//meal.dateTime,
 					meal.maxAmountOfParticipants,
 					meal.price,
 					meal.imageUrl,
