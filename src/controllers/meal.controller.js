@@ -165,11 +165,12 @@ let controller = {
 	updateMealById: (req, res, next) => {
 		const mealId = req.params.mealId;
 		const newMealInfo = req.body;
+		let price = parseFloat(newMealInfo.price);
 
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err;
 			connection.query(
-				'UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, datetime = ?, imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;',
+				`UPDATE meal SET name = ?, description = ?, isActive = ?, isVega = ?, isVegan = ?, isToTakeHome = ?, datetime = STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s.%fZ'), imageUrl = ?, allergenes = ?, maxAmountOfParticipants = ?, price = ? WHERE id = ?;`,
 				[
 					newMealInfo.name,
 					newMealInfo.description,
@@ -181,7 +182,7 @@ let controller = {
 					newMealInfo.imageUrl,
 					newMealInfo.allergenes,
 					newMealInfo.maxAmountOfParticipants,
-					newMealInfo.price,
+					price,
 					mealId,
 				],
 				function (error, results, fields) {
@@ -201,6 +202,14 @@ let controller = {
 								function (error, results, fields) {
 									connection.release();
 									if (error) throw error;
+
+									results[0].price = price;
+
+									results[0].isActive = (newMealInfo.isActive) ? true : false;
+									results[0].isVega = (newMealInfo.isVega) ? true : false;
+									results[0].isVegan = (newMealInfo.isVegan) ? true : false;
+									results[0].isToTakeHome = (newMealInfo.isToTakeHome) ? true : false;
+
 									res.status(200).json({
 										status: 200,
 										result: results[0],
