@@ -138,6 +138,7 @@ This keeps the data secure and provides login functionality to the application.
   {
   ...user
   }
+```
 
 ### Meal
 
