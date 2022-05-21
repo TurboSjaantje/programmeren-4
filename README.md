@@ -28,7 +28,7 @@ npm start
 
 ## Used libraries
 A list of the libraries used within this project:
-- [chai]([https://www.npm.com/chai](https://www.npmjs.com/package/chai))
+- [chai]([https://www.npm.com/chai](https://www.npmjs.com/package/chai)
 - [chai-http](https://www.npmjs.com/package/chai-http)
 - [mocha](https://www.npmjs.com/package/mocha) 
 - [mysql2](https://www.npmjs.com/package/mysql2)
