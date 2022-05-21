@@ -1,7 +1,7 @@
 # Share-a-meal API
 
 [![Deploy to Heroku](https://github.com/TurboSjaantje/programmeren-4/actions/workflows/main.yml/badge.svg)](https://github.com/TurboSjaantje/programmeren-4/actions/workflows/main.yml)
-[![Hoi](https://www.img.shields.io/github/languages/top/:user/:repo)
+![GitHub repo size](https://img.shields.io/github/repo-size/TurboSjaantje/programmeren-4?label=Total%20Size)
 
 ## Description
 
