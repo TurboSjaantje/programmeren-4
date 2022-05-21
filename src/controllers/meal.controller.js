@@ -8,7 +8,7 @@ let controller = {
 	// Validate new meal
 	validateMeal: (req, res, next) => {
 		let meal = req.body;
-		let { name, description, imageUrl, maxAmountOfParticipants, price } =
+		let { name, description, imageUrl, maxAmountOfParticipants, price, isToTakeHome } =
 			meal;
 
 		try {
@@ -26,7 +26,7 @@ let controller = {
 				'maxAmountofParticipants should be a number!'
 			);
 			assert(typeof price === 'number', 'Price should be a number!');
-
+			assert(typeof isToTakeHome != null, 'isToTakeHome cannot be null')
 			next();
 		} catch (err) {
 			const error = { status: 400, message: err.message };
