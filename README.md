@@ -168,3 +168,18 @@ This keeps the data secure and provides login functionality to the application.
 	...meal
 }
 ```
+#### Get meal
+##### Route
+```http
+  GET /api/meal
+```
+##### Request
+```json
+Authorization header: bearer token
+```
+##### Response
+```json
+[
+	...meals
+]
+```
