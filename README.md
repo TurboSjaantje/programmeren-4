@@ -24,14 +24,25 @@ This keeps the data secure and provides login functionality to the application.
 	- [Authentication](#authentication)
 		- [Get login token](#get-login-token) 	
 	- [User](#user)
-	- [Meal](#meal)	 	
+	        - [Register](#register)
+	        - [Get all](#get-all)
+	        - [Get user by id](#get-user-by-id)
+	        - [Update user by id](#update-user-by-id)
+	        - [Delete user by id](#delete-user-by-id)
+	        - [Get personal user profile ](#get-personal-user-profile)
+	- [Meal](#meal)	 
+		- [Register meal](#register-meal)	
+		- [Get meal](#get-meal)
+	        - [Get meal by id](#get-meal-by-id)
+	        - [Update meal by id](#update-meal-by-id)
+	        - [Delete meal by id](#delete-meal-by-id)
+	        - [Participate in meal](#participate-in-meal)
 
 ## Installation 
 ([Back to top](#share-a-meal-api))	
 1. To download this code, fork the repository or download a .zip file.
 
 ### Run API local
-([Back to top](#share-a-meal-api))
 Hieronder kun je de applicatie lokaal draaien op http://localhost:3000 met deze commands.
 
 ``` 
@@ -185,7 +196,7 @@ A list of the libraries used within this project:
 
 ### Meal
 ------------------------------------------------
-#### Register
+#### Register meal
 ([Back to top](#share-a-meal-api))
 
 ##### Route
@@ -281,4 +292,23 @@ Authorization header: bearer token
 	...deletedMeal
 }
 ```
+------------------------------------------------
+#### Participate in meal
+([Back to top](#share-a-meal-api))
+##### Route
+```http
+  GET /api/meal/:mealId/participate
+```
+##### Request
+```json
+Authorization header: bearer token
+```
+##### Response
+```json
+{
+	currentlyParticipating: "Boolean",
+	currentAmountOfParticipants: "Number",
+}
+```
+
 
