@@ -62,7 +62,7 @@ describe('Login Functionality /auth/login', () => {
 
 		it('TC 101-1 Required field missing', (done) => {
 			chai.request(server)
-				.post('/auth/login')
+				.post('/api/auth/login')
 				.send({
 					//emailAdress: 'name@server.nl',
 					password: 'Password1!',
@@ -80,7 +80,7 @@ describe('Login Functionality /auth/login', () => {
 
 		it('TC 101-2 Non valid email', (done) => {
 			chai.request(server)
-				.post('/auth/login')
+				.post('/api/auth/login')
 				.send({
 					emailAdress: 1,
 					password: 'Password1!',
@@ -98,7 +98,7 @@ describe('Login Functionality /auth/login', () => {
 
 		it('TC 101-3 Non valid password', (done) => {
 			chai.request(server)
-				.post('/auth/login')
+				.post('/api/auth/login')
 				.send({
 					emailAdress: 'name@server.nl',
 					password: 1,
@@ -116,7 +116,7 @@ describe('Login Functionality /auth/login', () => {
 
 		it('TC 101-4 User does not exist', (done) => {
 			chai.request(server)
-				.post('/auth/login')
+				.post('/api/auth/login')
 				.send({
 					emailAdress: 'fakeuser@server.nl',
 					password: 'Password1!',
@@ -134,7 +134,7 @@ describe('Login Functionality /auth/login', () => {
 
 		it('TC 101-5 User logged in succesfully', (done) => {
 			chai.request(server)
-				.post('/auth/login')
+				.post('/api/auth/login')
 				.send({
 					emailAdress: 'name@server.nl',
 					password: 'Password1!',
