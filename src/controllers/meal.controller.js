@@ -156,7 +156,12 @@ let controller = {
 						next(error);
 						return;
 					}
+					
 					result[0].isActive = (result[0].isActive) ? true : false;
+					result[0].isVega = (result[0].isVega) ? true : false;
+					result[0].isVegan = (result[0].isVegan) ? true : false;
+					result[0].isToTakeHome = (result[0].isToTakeHome) ? true : false;
+
 					res.status(200).json({
 						status: 200,
 						result: result[0],
