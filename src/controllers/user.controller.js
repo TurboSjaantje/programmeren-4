@@ -93,7 +93,7 @@ let controller = {
 			);
 			assert.match(
 				phoneNumber,
-				/^\d{10}$/,
+				/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/,
 				'Phonenumber should be 10 digits'
 			);
 			assert(typeof password === 'string', 'Password cannot be null!');
