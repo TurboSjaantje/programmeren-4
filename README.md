@@ -26,7 +26,8 @@ This keeps the data secure and provides login functionality to the application.
 	- [User](#user)
 	- [Meal](#meal)	 	
 
-## Installation ([Back to top](#share-a-meal-api))	
+## Installation 
+([Back to top](#share-a-meal-api))	
 1. To download this code, fork the repository or download a .zip file.
 
 ### Run API local
