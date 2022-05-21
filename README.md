@@ -38,15 +38,11 @@ This keeps the data secure and provides login functionality to the application.
 ### User
 
 #### Register
-
 ##### Route
-
 ```http
   POST /api/user
 ```
-
 ##### Request
-
 ```json
 {
 	"firstName": "String",
@@ -59,7 +55,6 @@ This keeps the data secure and provides login functionality to the application.
 	"city": "String"
 }
 ```
-
 ##### Response
 
 ```json
@@ -67,46 +62,65 @@ This keeps the data secure and provides login functionality to the application.
 	...user
 }
 ```
+
 #### Get all
-
 ##### Route
-
 ```http
   GET /api/user
 ```
-
 ##### Request
-
 ```json
   Authorization header: bearer token
-  {key : userId, value : "Number"}
 ```
-
 ##### Response
-
 ```json
   result:[...users]
 ```
 
 #### Get user by id
-
 ##### Route
-
 ```http
   GET /api/user/:id
 ```
-
 ##### Request
-
 ```json
   Authorization header: bearer token
-  {key : userId, value : "Number"}
 ```
-
 ##### Response
-
 ```json
   {
   ...user
+  }
+```
+
+#### Update user by id
+##### Route
+```http
+  PUT /api/user/:id
+```
+##### Request
+```json
+  Authorization header: bearer token
+```
+##### Response
+```json
+  {
+  ...updatedUser
+  }
+```
+
+#### Delete user by id
+##### Route
+```http
+  DELETE /api/user/:id
+```
+##### Request
+```json
+  Authorization header: bearer token
+```
+##### Response
+```json
+  {
+  ...deletedUser
   }
 ```
