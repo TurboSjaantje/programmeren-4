@@ -186,6 +186,7 @@ let controller = {
 		const mealId = req.params.mealId;
 		const newMealInfo = req.body;
 		let price = parseFloat(newMealInfo.price);
+		let updateAllergenes = req.body.allergenes.join()
 
 		dbconnection.getConnection(function (err, connection) {
 			if (err) throw err;
@@ -200,7 +201,7 @@ let controller = {
 					newMealInfo.isToTakeHome,
 					newMealInfo.dateTime,
 					newMealInfo.imageUrl,
-					newMealInfo.allergenes,
+					updateAllergenes,
 					newMealInfo.maxAmountOfParticipants,
 					price,
 					mealId,
