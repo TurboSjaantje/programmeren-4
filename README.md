@@ -16,6 +16,10 @@ This keeps the data secure and provides login functionality to the application.
 
 -   [@TurboSjaantje](https://www.github.com/TurboSjaantje)
 
+## Navigation
+- [Installation](#Installation)
+	- [Run API local](#Run API local)
+
 ## Installation
 1. To download this code, fork the repository or download a .zip file.
 
