@@ -247,7 +247,7 @@ let controller = {
 							connection.release;
 							res.status(200).json({
 								status: 200,
-								result: meal[0],
+								message: 'Meal deleted successfully',
 							});
 						}
 					);
