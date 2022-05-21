@@ -312,13 +312,13 @@ describe('CRUD Meals /api/meal', () => {
 						description: 'Henk zn meal',
 						id: 1,
 						imageUrl: 'https://google.com/meal1',
-						isActive: 1,
-						isToTakeHome: 1,
-						isVega: 0,
-						isVegan: 0,
+						isActive: true,
+						isToTakeHome: true,
+						isVega: false,
+						isVegan: false,
 						maxAmountOfParticipants: 1,
 						name: 'Maaltijd',
-						price: '10.00',
+						price: 10.00,
 						updateDate: result.updateDate,
 					});
 					done();
