@@ -23,7 +23,7 @@ This keeps the data secure and provides login functionality to the application.
 ### Authentication
 ------------------------------------------------
 #### Get login token
-------------------------------------------------
+
 ```http
   POST /auth/login
 ```
@@ -38,7 +38,7 @@ This keeps the data secure and provides login functionality to the application.
 ### User
 ------------------------------------------------
 #### Register
-------------------------------------------------
+
 ##### Route
 ```http
   POST /api/user
@@ -144,7 +144,7 @@ This keeps the data secure and provides login functionality to the application.
 ### Meal
 ------------------------------------------------
 #### Register
-------------------------------------------------
+
 ##### Route
 ```http
   POST /api/meal
