@@ -122,7 +122,9 @@ describe('CRUD Users /api/user', () => {
 					status.should.equals(400);
 					message.should.be
 						.a('string')
-						.that.equals('Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit');
+						.that.equals(
+							'Password must contain 8-15 characters which contains at least one lower- and uppercase letter, one special character and one digit'
+						);
 					done();
 				});
 		});

@@ -246,8 +246,81 @@ let controller = {
 			);
 		});
 	},
+	// UC-401
+	participateMeal: (req, res, next) => {
+		const newUserId = req.userId;
+		const mealId = req.params.mealId;
+
+		dbconnection.getConnection(function (error, connection) {
+			if (error) throw error;
+			// Get the meal information
+			connection.query('SELECT * FROM meal WHERE id=?', [mealId], function (error, result, fields) {
+				if (error) throw error;
+
+				if (result.length < 1) {
+					// Meal does not exist
+					const err = { status: 404, message: 'Meal does not exist!', };
+					next(err);
+				} else {
+					// Get all participating users
+					connection.query('SELECT userId FROM meal_participants_user WHERE mealId=?', [mealId], function (error, usersInMeal, fields) {
+						if (error) throw error;
+
+						let userAlreadyParticipating = false;
+
+						let i = 0;
+						while (i < usersInMeal.length) {
+							if (usersInMeal[i].userId == newUserId) userAlreadyParticipating = true;
+							i += 1
+						}
+
+						// If user is not already paricipating
+						if (!userAlreadyParticipating) {
+							// If there is no more room
+							if (usersInMeal.length == result[0].maxAmountOfParticipants) {
+								const err = { status: 401, message: 'No participation places free!', };
+								next(err);
+							}
+							// If there is room
+							else {
+								connection.query('INSERT INTO meal_participants_user (mealId, userId) VALUES (?,?)', [mealId, newUserId], function (error, result, fields) {
+									connection.release();
+									if (error) throw error;
+									let response = {
+										"currentlyParticipating": true,
+										"currentAmountOfParticipants": (usersInMeal.length + 1)
+									}
+									res.status(200).json({
+										status: 200,
+										result: response
+									})
+								}
+								);
+							}
+						}
+						// If user is already participating
+						else {
+							connection.query('DELETE FROM meal_participants_user WHERE mealId=? AND userId=?', [mealId, newUserId], function (error, result, fields) {
+								connection.release();
+								if (error) throw error;
+								let response = {
+									"currentlyParticipating": false,
+									"currentAmountOfParticipants": usersInMeal.length
+								}
+								res.status(200).json({
+									status: 200,
+									result: response
+								})
+							})
+						}
+					}
+					);
+				}
+			}
+			);
+		});
+	},
 };
 
 module.exports = controller;
 
-//test

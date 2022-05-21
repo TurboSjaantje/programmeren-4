@@ -41,4 +41,11 @@ router.delete(
 	mealController.deleteMealById
 );
 
+//UC-401
+router.get(
+	'/api/meal/:mealId/participate',
+	authController.validateToken,
+	mealController.participateMeal
+);
+
 module.exports = router;
