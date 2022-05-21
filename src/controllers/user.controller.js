@@ -167,13 +167,13 @@ let controller = {
 				message: 'Invalid search term!',
 			});
 		else if (isActive != undefined && firstName == undefined)
-			dbQuery = `SELECT * FROM user WHERE isActive = ${active}`;
+			dbQuery = `SELECT * FROM user WHERE isActive = ${isActive}`;
 		else if (isActive == undefined && firstName != undefined)
 			dbQuery = `SELECT * FROM user WHERE firstname LIKE '%${firstName}%'`;
 
 		// Retrieve users
 		dbconnection.getConnection(function (err, connection) {
-			if (err) throw error;
+			if (err) throw err;
 			connection.query(dbQuery, function (error, result, fields) {
 				connection.release();
 				if (error) throw error;

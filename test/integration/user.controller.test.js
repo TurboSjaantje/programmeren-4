@@ -319,7 +319,7 @@ describe('CRUD Users /api/user', () => {
 
 			it('TC-202-3 Show users for non-existing name /api/user', (done) => {
 				chai.request(server)
-					.get('/api/user?name=fa;sldkfj;aslkjdf;lksdjf')
+					.get('/api/user?firstName=fa;sldkfj;aslkjdf;lksdjf')
 					.set(
 						'authorization',
 						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
@@ -335,7 +335,7 @@ describe('CRUD Users /api/user', () => {
 
 			it('TC-202-4 Show users for isActive=false /api/user', (done) => {
 				chai.request(server)
-					.get('/api/user?active=false')
+					.get('/api/user?isActive=false')
 					.set(
 						'authorization',
 						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
@@ -351,7 +351,7 @@ describe('CRUD Users /api/user', () => {
 
 			it('TC-202-5 Show users for isActive=true /api/user', (done) => {
 				chai.request(server)
-					.get('/api/user?active=true')
+					.get('/api/user?isActive=true')
 					.set(
 						'authorization',
 						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
@@ -367,7 +367,7 @@ describe('CRUD Users /api/user', () => {
 
 			it('TC-202-6 Show users for name=first /api/user', (done) => {
 				chai.request(server)
-					.get('/api/user?name=first')
+					.get('/api/user?firstName=first')
 					.set(
 						'authorization',
 						'Bearer ' + jwt.sign({ userId: 2 }, jwtSecretKey)
